@@ -1,3 +1,9 @@
+# Backend
+node_modules/
+*.env
+
+
+
 # Compiled class file
 *.class
 
