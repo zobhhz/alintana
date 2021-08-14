@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/sm_welcome"
+        android:title="Welcome"
+        />
+    <item
+        android:id="@+id/sm_login"
+        android:title="Login"
+        />
+    <item
+        android:id="@+id/sm_signup"
+        android:title="Create Account"
+        />
+
+
+</menu>
