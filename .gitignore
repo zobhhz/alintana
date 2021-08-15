@@ -2,7 +2,8 @@
 node_modules/
 *.env
 
-
+# idea
+alintana/.idea
 
 # Compiled class file
 *.class
