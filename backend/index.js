@@ -9,7 +9,7 @@ dotenv.config({ path: "config.env" });
 
 const app = express();
 
-if (process.env.NODE_ENV === "production") app.use(enforce.HTTPS({ trustProtoHeader: true }));
+//if (process.env.NODE_ENV === "production") app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 app.use(morgan("dev"));
 
