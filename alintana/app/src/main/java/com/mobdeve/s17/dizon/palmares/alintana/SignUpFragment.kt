@@ -1,10 +1,21 @@
 package com.mobdeve.s17.dizon.palmares.alintana
 
+import android.app.DatePickerDialog
 import android.os.Bundle
+import android.text.Editable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.DatePicker
+import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentSignUpBinding
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.Calendar.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,44 +27,72 @@ private const val ARG_PARAM2 = "param2"
  * Use the [SignUpFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class SignUpFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var binding : FragmentSignUpBinding
+    val calendar : Calendar = getInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
+
+    }
+
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        binding = FragmentSignUpBinding.inflate(inflater, container, false)
+
+        val items = listOf("Prefer Not To Say", "Male", "Female", "Non-binary", "Gay", "Lesbian", "Other")
+        val sexAdapter = ArrayAdapter(requireContext(), R.layout.item_list, items)
+        (binding.actvSex)?.setAdapter(sexAdapter)
+
+        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, monthOfYear)
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+            val myFormat = "MM/dd/yyyy" // mention the format you need
+            val sdf = SimpleDateFormat(myFormat, Locale.US)
+            binding.etBirthdate.setText(sdf.format(calendar.time))
+
         }
-    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
-    }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SignUpFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SignUpFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        binding.etBirthdate.setOnFocusChangeListener { v, hasFocus ->
+
+            if(hasFocus){
+                if (container != null) {
+                    Log.i("SET", "HELLO")
+                    DatePickerDialog(container.context, dateSetListener,
+                        calendar.get(YEAR),
+                        calendar.get(MONTH),
+                        calendar.get(DAY_OF_MONTH))
+                        .show()
                 }
             }
+
+        }
+//
+//        binding.etBirthdate.setOnClickListener {
+//            Log.i("SET", "CHECK")
+//
+//            if (container != null) {
+//                Log.i("SET", "HELLO")
+//                DatePickerDialog(container.context, dateSetListener,
+//                    calendar.get(YEAR),
+//                    calendar.get(MONTH),
+//                    calendar.get(DAY_OF_MONTH))
+//                    .show()
+//            }
+//
+//        }
+
+
+        return binding.root
     }
+
 }

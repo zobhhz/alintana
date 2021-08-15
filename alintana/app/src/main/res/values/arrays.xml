@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sex">
+        <item>Prefer Not To Say</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Non-binary</item>
+    </string-array>
+</resources>
