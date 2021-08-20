@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.41822916666666665" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.41822916666666665" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.41822916666666665" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/drawable/ic_baseline_gamepad_24.xml" value="0.41822916666666665" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.41822916666666665" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.41822916666666665" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.41822916666666665" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/drawable/ic_baseline_smartphone_24.xml" value="0.41822916666666665" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/drawable/ic_baseline_trophy_24.xml" value="0.41822916666666665" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/drawable/ic_launcher_background.xml" value="0.41822916666666665" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/drawable/ic_round_menu_24.xml" value="0.41822916666666665" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/drawable/ic_welcome.xml" value="0.41822916666666665" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/drawable/ic_welcome1.xml" value="0.41822916666666665" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/drawable/textlines.xml" value="0.41822916666666665" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/layout/activity_main.xml" value="0.1955420466058764" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/layout/activity_profile.xml" value="0.4" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/layout/fragment_login.xml" value="0.40208333333333335" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/layout/fragment_sign_up.xml" value="0.1955420466058764" />
+        <entry key="..\:/Users/User/Downloads/GitHub/alintana/alintana/app/src/main/res/layout/fragment_welcome.xml" value="0.40208333333333335" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
