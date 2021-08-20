@@ -232,6 +232,7 @@
             android:layout_marginBottom="8dp"
             >
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_headline"
                 android:inputType="textMultiLine"
                 android:lines="6"
                 android:minLines="6"

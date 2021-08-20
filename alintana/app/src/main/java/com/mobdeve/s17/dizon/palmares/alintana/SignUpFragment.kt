@@ -1,6 +1,7 @@
 package com.mobdeve.s17.dizon.palmares.alintana
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
@@ -11,7 +12,15 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.DatePicker
+import android.widget.Toast
+import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentSignUpBinding
+import com.mobdeve.s17.dizon.palmares.alintana.model.RegisterInformation
+import com.mobdeve.s17.dizon.palmares.alintana.model.RegisterResponse
+import com.mobdeve.s17.dizon.palmares.alintana.model.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.*
@@ -60,6 +69,13 @@ class SignUpFragment : Fragment() {
             binding.etBirthdate.setText(sdf.format(calendar.time))
 
         }
+        binding.etUsername.setText("HarryPotter")
+        binding.etBirthdate.setText("10/28/2000")
+        binding.etHeadline.setText("Yer a Wizard")
+        binding.actvMobilenumber.setText("09293397767")
+        binding.actvLoc.setText("Hogwarts")
+        binding.etPassword.setText("12345678")
+        binding.etConfirmpassword.setText("12345678")
 
 
         binding.etBirthdate.setOnFocusChangeListener { v, hasFocus ->
@@ -90,6 +106,69 @@ class SignUpFragment : Fragment() {
 //            }
 //
 //        }
+
+        binding.btnSignup.setOnClickListener{
+
+            val username = binding.etUsername.text.toString().trim()
+            val password = binding.etPassword.text.toString()
+            val confirmPassword = binding.etConfirmpassword.text.toString()
+            val sex = binding.actvSex.text.toString()
+            val location = binding.actvLoc.text.toString()
+            val headline = binding.etHeadline.text.toString()
+            val mobilenumber = binding.actvMobilenumber.text.toString()
+
+            val birthdate = binding.etBirthdate.text.toString()
+
+            if(username.isEmpty()){
+                binding.etUsername.error = "Username required"
+                binding.etUsername.requestFocus()
+                return@setOnClickListener
+            }
+
+            if(password.isEmpty()){
+                binding.etPassword.error = "Password required"
+                binding.etPassword.requestFocus()
+                return@setOnClickListener
+            }
+            if(confirmPassword.isEmpty()){
+                binding.etConfirmpassword.error = "Password required"
+                binding.etConfirmpassword.requestFocus()
+                return@setOnClickListener
+            }
+            if(birthdate.isEmpty()){
+                binding.etBirthdate.error = "Password required"
+                binding.etBirthdate.requestFocus()
+                return@setOnClickListener
+            }
+
+            val info = RegisterInformation(username,birthdate,sex,mobilenumber,location,headline,password,confirmPassword)
+
+            APIClient.create().createUser(info).enqueue(object :
+                Callback<RegisterResponse> {
+                override fun onResponse(p0: Call<RegisterResponse>, p1: Response<RegisterResponse>) {
+
+                    if(p1.body()?.status.equals("success")){
+                        val rawData = p1.body()?.data!!
+
+                        Log.i("USER", p1.body().toString())
+
+//                        val user = User(rawData.username, rawData.birthdate, rawData.sex, rawData.location, rawData.location, rawData.headline, rawData.experience, rawData.createdAt)
+//                        val gotoProfile : Intent = Intent(activity?.baseContext, ProfileActivity::class.java)
+//                        gotoProfile.putExtra("user", user)
+//                        startActivity(gotoProfile)
+
+
+                    }else{
+                        Toast.makeText(activity!!.applicationContext, "Registration Failed", Toast.LENGTH_LONG).show()
+                    }
+                }
+                override fun onFailure(p0: Call<RegisterResponse>, p1: Throwable) {
+                    Toast.makeText(activity!!.applicationContext, p1.message, Toast.LENGTH_LONG).show()
+                }
+            })
+
+
+        }
 
 
         return binding.root

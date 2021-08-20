@@ -1,10 +1,22 @@
 package com.mobdeve.s17.dizon.palmares.alintana
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
+import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentLoginBinding
+import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentWelcomeBinding
+import com.mobdeve.s17.dizon.palmares.alintana.model.LoginInformation
+import com.mobdeve.s17.dizon.palmares.alintana.model.LoginResponse
+import com.mobdeve.s17.dizon.palmares.alintana.model.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,15 +30,23 @@ private const val ARG_PARAM2 = "param2"
  */
 class LoginFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    lateinit var apiClient : APIClient
+    // assign the _binding variable initially to null and
+    // also when the view is destroyed again it has to be set to null
+    private var _binding: FragmentLoginBinding? = null
+
+    // with the backing property of the kotlin we extract
+    // the non null value of the _binding
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
+    }
+
+    override fun onStop() {
+        super.onStop()
     }
 
     override fun onCreateView(
@@ -34,26 +54,59 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+
+        binding.btnLogin.setOnClickListener{
+
+            val username = binding.etLoginUsername.text.toString().trim()
+            val password = binding.etLoginPassword.text.toString().trim()
+
+            if(username.isEmpty()){
+                binding.etLoginUsername.error = "Username required"
+                binding.etLoginUsername.requestFocus()
+                return@setOnClickListener
+            }
+
+            if(password.isEmpty()){
+                binding.etLoginPassword.error = "Password required"
+                binding.etLoginPassword.requestFocus()
+                return@setOnClickListener
+            }
+
+            APIClient.create().loginUser(LoginInformation(username, password)).enqueue(object :
+                Callback<LoginResponse> {
+                override fun onResponse(p0: Call<LoginResponse>, p1: Response<LoginResponse>) {
+                    if(p1.body()?.status.equals("success")){
+                        Toast.makeText(activity!!.applicationContext, p1.body()?.message.toString() + " "+ p1.body()?.data?.username, Toast.LENGTH_LONG).show()
+                        val rawData = p1.body()?.data!!
+                        val user = User(rawData.username, rawData.birthdate, rawData.sex, rawData.location, rawData.location, rawData.headline, rawData.experience, rawData.createdAt)
+
+                        val gotoProfile : Intent = Intent(activity?.baseContext, ProfileActivity::class.java)
+                        gotoProfile.putExtra("user", user)
+                        startActivity(gotoProfile)
+
+
+                    }else{
+                        Toast.makeText(activity!!.applicationContext, "Error: Wrong Username or Password", Toast.LENGTH_LONG).show()
+                    }
+                }
+                override fun onFailure(p0: Call<LoginResponse>, p1: Throwable) {
+                    Toast.makeText(activity!!.applicationContext, p1.message, Toast.LENGTH_LONG).show()
+                }
+            })
+
+
+        }
+
+
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LoginFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
+
 }

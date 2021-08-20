@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     },
     sex: {
         type: String,
-        enum: ["Prefer Not To Say", "Male", "Female", "Non-binary"],
+        enum: ["Prefer Not To Say", "Male", "Female", "Non-binary", "Gay", "Lesbian", "Other"],
         default: "Prefer Not To Say",
     },
     mobileNumber: {
@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+    createdAt: {
+        type: Date,
+        default: Date.now(),
+    },
 });
 
 userSchema.methods.correctPassword = async function (candidatePassword, userPassword) {
@@ -53,7 +57,7 @@ userSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, 12);
 
     // delete password confirm field
-    this.passwordConfirm = undefined;
+    this.confirmPassword = undefined;
     next();
 });
 
