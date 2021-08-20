@@ -26,6 +26,7 @@ class User : Serializable{
         experience: Int,
         createdAt: String,
     ) {
+
         this.username = username
         this.birthdate = birthdate!!
         this.sex = sex
