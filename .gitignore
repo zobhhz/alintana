@@ -93,3 +93,4 @@ vcs.xml
 alintana/.idea/gradle.xml
 alintana/build.gradle
 alintana/gradle/wrapper/gradle-wrapper.properties
+alintana/.idea/discord.xml
