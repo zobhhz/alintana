@@ -48,6 +48,12 @@ class MatchAdapter(var context: Context, var matches: ArrayList<User>): Recycler
         notifyDataSetChanged()
     }
 
+    fun removeMatchCard(position: Int){
+        matches.removeAt(position)
+        notifyItemRemoved(position);
+
+    }
+
 
     class MatchViewHolder(view : View) : RecyclerView.ViewHolder(view){
 

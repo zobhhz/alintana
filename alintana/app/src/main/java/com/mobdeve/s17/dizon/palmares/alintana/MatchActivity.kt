@@ -1,9 +1,9 @@
 package com.mobdeve.s17.dizon.palmares.alintana
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobdeve.s17.dizon.palmares.alintana.adapter.MatchAdapter
@@ -19,6 +19,7 @@ class MatchActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMatchBinding
     private var matches : ArrayList<User> = ArrayList()
     private lateinit var matchAdapter: MatchAdapter
+    private lateinit var itemTouchHelper : ItemTouchHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,10 @@ class MatchActivity : AppCompatActivity() {
         matchAdapter = MatchAdapter(applicationContext, matches)
         binding.rvPossibleMatches.layoutManager = NoScrollHorizontalLayoutManager(applicationContext)
         binding.rvPossibleMatches.adapter = matchAdapter
+
+        itemTouchHelper = ItemTouchHelper(SwipeCallback(matchAdapter))
+        itemTouchHelper.attachToRecyclerView(binding.rvPossibleMatches)
+
         setContentView(binding.root)
         loadData()
 
@@ -52,9 +57,7 @@ class MatchActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<PossibleMatchesResponse>, t: Throwable) {
-
             }
-
 
         })
 
