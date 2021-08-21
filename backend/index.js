@@ -17,7 +17,7 @@ app.use(morgan("dev"));
 app.use(express.json({ limit: "10kb" }));
 
 app.use("/", authRoutes);
-app.use("/api/v1/users", userRoutes);
-app.use("/api/v1/matches", matchRoutes);
+app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/match", matchRoutes);
 
 module.exports = app;

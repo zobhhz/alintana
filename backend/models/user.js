@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: [true, "name field is required"],
-        minlength: 7,
+        minlength: 4,
         unique: true,
     },
     birthdate: {
@@ -31,6 +31,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "provide a password"],
         minlength: 8,
+        select: false,
     },
     confirmPassword: {
         type: String,
@@ -58,6 +59,12 @@ userSchema.pre("save", async function (next) {
 
     // delete password confirm field
     this.confirmPassword = undefined;
+    next();
+});
+
+userSchema.pre(/^find/, function (next) {
+    // this points to the current query
+    this.select;
     next();
 });
 

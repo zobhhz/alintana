@@ -1,5 +1,10 @@
 package com.mobdeve.s17.dizon.palmares.alintana.model
 
+import com.google.gson.annotations.SerializedName
+import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.Serializable
 import java.lang.Integer.parseInt
 import java.text.SimpleDateFormat
@@ -7,16 +12,27 @@ import java.util.*
 
 class User : Serializable{
 
+    @SerializedName("__id")
+    var __id = ""
+    @SerializedName("username")
     var username = ""
+    @SerializedName("birthdate")
     var birthdate = ""
+    @SerializedName("sex")
     var sex = ""
+    @SerializedName("mobileNumber")
     var mobileNumber = ""
+    @SerializedName("location")
     var location = ""
+    @SerializedName("headline")
     var headline = ""
+    @SerializedName("experience")
     var experience = 0
+    @SerializedName("createdAt")
     var createdAt = ""
 
     constructor(
+        __id : String,
         username: String,
         birthdate: String?,
         sex: String,
@@ -26,6 +42,7 @@ class User : Serializable{
         experience: Int,
         createdAt: String,
     ) {
+        this.__id = __id
         this.username = username
         this.birthdate = birthdate!!
         this.sex = sex
@@ -40,6 +57,38 @@ class User : Serializable{
         }
         this.experience = experience
         this.createdAt = createdAt
+    }
+
+    constructor(id : String){
+        APIClient.create().getUserById(id).enqueue(object : Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                __id = response.body()!!.__id
+                username = response.body()!!.username
+                birthdate = response.body()!!.birthdate
+                sex = response.body()!!.sex
+                experience = response.body()!!.experience
+                createdAt = response.body()!!.createdAt
+                if(response.body()?.location != null){
+                    location = response.body()!!.location
+                }
+                if(response.body()?.headline != null){
+                    headline = response.body()!!.headline
+                }
+                if(response.body()?.mobileNumber != null){
+                    mobileNumber = response.body()!!.mobileNumber
+                }
+
+
+
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+
+
+
     }
 
     fun getAge():Int{
