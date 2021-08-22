@@ -45,6 +45,10 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now(),
     },
+    userimg: {
+        type: String,
+        default: "",
+    },
 });
 
 userSchema.methods.correctPassword = async function (candidatePassword, userPassword) {

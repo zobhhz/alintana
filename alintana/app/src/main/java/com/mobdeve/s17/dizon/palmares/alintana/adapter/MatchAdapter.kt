@@ -1,6 +1,8 @@
 package com.mobdeve.s17.dizon.palmares.alintana.adapter
 
 import android.content.Context
+import android.icu.number.NumberFormatter.with
+import android.icu.number.NumberRangeFormatter.with
 import android.text.TextUtils.isEmpty
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +10,20 @@ import android.view.ViewGroup
 import android.view.ViewParent
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.mobdeve.s17.dizon.palmares.alintana.R
+import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
+import com.mobdeve.s17.dizon.palmares.alintana.model.AddMatchInformation
+import com.mobdeve.s17.dizon.palmares.alintana.model.AddMatchResponse
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
+import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class MatchAdapter(var context: Context, var matches: ArrayList<User>): RecyclerView.Adapter<MatchAdapter.MatchViewHolder>() {
-
-
+class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user: User): RecyclerView.Adapter<MatchAdapter.MatchViewHolder>() {
 
     override fun getItemCount(): Int{
         return matches.size
@@ -27,6 +36,10 @@ class MatchAdapter(var context: Context, var matches: ArrayList<User>): Recycler
         holder.username.text = matches[position].username
         holder.headline.text = matches[position].headline
 
+        if(matches[position].userImage != null && !isEmpty(matches[position].userImage))
+            Picasso.get().load(matches[position].userImage).into(holder.userImg)
+        else
+            holder.userImg.setImageResource(R.drawable.ic_baseline_person_24)
 
         holder.age.text = matches[position].getAge().toString()
         holder.sex.text =  matches[position].sex
@@ -48,9 +61,28 @@ class MatchAdapter(var context: Context, var matches: ArrayList<User>): Recycler
         notifyDataSetChanged()
     }
 
-    fun removeMatchCard(position: Int){
-        matches.removeAt(position)
-        notifyItemRemoved(position);
+    fun removeMatchCard(position: Int, type: Int){
+        if(type == ItemTouchHelper.RIGHT){
+            APIClient.create().addMatch(AddMatchInformation(user._id, matches[position]._id)).enqueue(object : Callback<AddMatchResponse>{
+                override fun onResponse(
+                    call: Call<AddMatchResponse>,
+                    response: Response<AddMatchResponse>
+                ) {
+                    Toast.makeText(context, "You liked " + matches[position].username, Toast.LENGTH_LONG).show()
+                    matches.removeAt(position)
+                    notifyItemRemoved(position);
+                }
+
+                override fun onFailure(call: Call<AddMatchResponse>, t: Throwable) {
+
+                }
+            })
+        }else{
+            Toast.makeText(context, "You passed on " + matches[position].username, Toast.LENGTH_LONG).show()
+            matches.removeAt(position)
+            notifyItemRemoved(position);
+
+        }
 
     }
 

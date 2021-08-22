@@ -1,5 +1,6 @@
 package com.mobdeve.s17.dizon.palmares.alintana.model
 
+import android.util.Log
 import com.google.gson.annotations.SerializedName
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import retrofit2.Call
@@ -12,8 +13,8 @@ import java.util.*
 
 class User : Serializable{
 
-    @SerializedName("__id")
-    var __id = ""
+    @SerializedName("_id")
+    var _id = ""
     @SerializedName("username")
     var username = ""
     @SerializedName("birthdate")
@@ -30,9 +31,11 @@ class User : Serializable{
     var experience = 0
     @SerializedName("createdAt")
     var createdAt = ""
+    @SerializedName("userimg")
+    var userImage = ""
 
     constructor(
-        __id : String,
+        _id : String,
         username: String,
         birthdate: String?,
         sex: String,
@@ -42,7 +45,7 @@ class User : Serializable{
         experience: Int,
         createdAt: String,
     ) {
-        this.__id = __id
+        this._id = _id
         this.username = username
         this.birthdate = birthdate!!
         this.sex = sex
@@ -58,11 +61,43 @@ class User : Serializable{
         this.experience = experience
         this.createdAt = createdAt
     }
+    constructor(
+        _id : String,
+        username: String,
+        birthdate: String?,
+        sex: String,
+        mobileNumber: String?,
+        location: String?,
+        headline: String?,
+        experience: Int,
+        createdAt: String,
+        userImage: String?
+    ) {
+        this._id = _id
+        this.username = username
+        this.birthdate = birthdate!!
+        this.sex = sex
+        if (mobileNumber != null) {
+            this.mobileNumber = mobileNumber
+        }
+        if (location != null) {
+            this.location = location
+        }
+        if (headline != null) {
+            this.headline = headline
+        }
+        this.experience = experience
+        this.createdAt = createdAt
+        if (userImage != null){
+            this.userImage = userImage
+        }
+    }
 
     constructor(id : String){
-        APIClient.create().getUserById(id).enqueue(object : Callback<User>{
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                __id = response.body()!!.__id
+        APIClient.create().getUserById(id).enqueue(object : Callback<UserResponse>{
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                Log.v("USER: ", response.toString())
+                _id = response.body()!!._id
                 username = response.body()!!.username
                 birthdate = response.body()!!.birthdate
                 sex = response.body()!!.sex
@@ -77,12 +112,13 @@ class User : Serializable{
                 if(response.body()?.mobileNumber != null){
                     mobileNumber = response.body()!!.mobileNumber
                 }
-
-
+                if(response.body()?.userImage != null){
+                    userImage = response.body()!!.userImage
+                }
 
             }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 TODO("Not yet implemented")
             }
         })

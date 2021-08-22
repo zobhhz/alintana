@@ -1,0 +1,102 @@
+[
+    {
+        "sex": "Female",
+        "experience": 210,
+        "username": "Klee",
+        "birthdate": "07/27/2012",
+        "mobileNumber": "09293397767",
+        "location": "Mondstadt",
+        "headline": "An energetic and outgoing girl who takes after her mother, Alice. She has a particular talent for creating explosives and is not fazed by the sound of explosions",
+        "userimg": "https://www.gamerstopia.com/wp-content/uploads/Klee.png"
+    },
+    {
+        "sex": "Male",
+        "experience": 1128,
+        "username": "Kaeya",
+        "birthdate": "11/30/1998",
+        "mobileNumber": "09293394956",
+        "location": "Mondstadt",
+        "headline": "An adopted son to the Ragnvindr Family, the renowned wine tycoons.",
+        "userimg": "https://www.gamerstopia.com/wp-content/uploads/Kaeya.png"
+    },
+    {
+        "sex": "Male",
+        "experience": 1523,
+        "username": "Diluc",
+        "mobileNumber": "09293394956",
+        "birthdate": "04/30/1998",
+        "location": "Mondstadt",
+        "headline": "The current owner of the Dawn Winery and a nobleman of high esteem in Mondstadt society.",
+        "userimg": "https://www.gamerstopia.com/wp-content/uploads/Diluc.png"
+    },
+    {
+        "sex": "Male",
+        "experience": 2123,
+        "username": "Zhongli",
+        "mobileNumber": "09293394956",
+        "birthdate": "12/31/1400",
+        "location": "Liyue",
+        "headline": "The God of Contracts who values fairness over everything else. He is the oldest archon and, despite his decision to retire, is able to still easily hold his own in combat.",
+        "userimg": "https://www.gamerstopia.com/wp-content/uploads/Zhongli.png"
+    },
+    {
+        "sex": "Female",
+        "experience": 1020,
+        "username": "Yanfei",
+        "mobileNumber": "09293394956",
+        "location": "Liyue",
+        "birthdate": "07/28/2001",
+        "headline": "A well-known legal adviser active in Liyue Harbor. A brilliant young lady in whose veins runs the blood of an illuminated beast.",
+        "userimg": "https://www.gamerstopia.com/wp-content/uploads/Yanfei.png"
+    },
+    {
+        "sex": "Female",
+        "experience": 2020,
+        "username": "Ganyu",
+        "location": "Liyue",
+        "mobileNumber": "09293394956",
+        "birthdate": "12/02/1700",
+        "headline": "Usually very quiet and reserved due to her half-qilin heritage. Qilin are also vegetarians; as such, she will not eat any meat dishes, including vegetarian ones that have been fried in animal fat.",
+        "userimg": "https://www.gamerstopia.com/wp-content/uploads/Ganyu.png"
+    },
+    {
+        "sex": "Female",
+        "experience": 1560,
+        "username": "Mona",
+        "location": "Mondstadt",
+        "mobileNumber": "09293394956",
+        "birthdate": "08/31/2001",
+        "headline": "An astrologist who takes her passion seriously. She is very knowledgeable in this subject in part and respects, yet also fears her master at the same time.",
+        "userimg": "https://www.gamerstopia.com/wp-content/uploads/Mona.png"
+    },
+    {
+        "sex": "Male",
+        "experience": 860,
+        "username": "Razor",
+        "location": "Mondstadt",
+        "mobileNumber": "09293394956",
+        "birthdate": "09/09/2004",
+        "headline": "Abandoned as an infant, Razor was taken in by the Wolf of the North, Andrius, and raised by his wolf pack in Wolvendom.",
+        "userimg": "https://www.gamerstopia.com/wp-content/uploads/Razor.png"
+    },
+    {
+        "sex": "Female",
+        "experience": 2258,
+        "username": "Baal",
+        "location": "Inazuma",
+        "mobileNumber": "09293394956",
+        "birthdate": "12/14/1700",
+        "headline": "This body is the noblest and most eminent of all in this world. It should hold absolute control over this world. It once promised its people a dream: the never-changing \"eternity.\"",
+        "userimg": ""
+    },
+    {
+        "sex": "Male",
+        "experience": 1670,
+        "username": "Childe",
+        "location": "Snezhnaya",
+        "mobileNumber": "09293394956",
+        "birthdate": "07/20/2001",
+        "headline": "\"kind of a bad guy\", living for the thrill of a fight and causing chaos.",
+        "userimg": "https://www.gamerstopia.com/wp-content/uploads/Tartaglia.png"
+    }
+]
