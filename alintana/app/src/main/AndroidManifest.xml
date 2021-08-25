@@ -15,7 +15,9 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".MatchActivity">
         </activity>
-        <activity android:name=".ProfileActivity">
+        <activity
+            android:name=".ProfileActivity"
+            android:theme="@style/Theme.Alintana.NoActionBar">
 
         </activity>
         <activity

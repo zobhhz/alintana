@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Alintana</string>
+    <string name="app_name">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="openNavDrawer">Navigation Drawer Open</string>
+    <string name="closeNavDrawer">Navigation Drawer Close</string>
 </resources>
