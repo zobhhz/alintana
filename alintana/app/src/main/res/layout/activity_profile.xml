@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -201,6 +202,54 @@
                 android:textColor="@color/primary"
                 />
 
+            <!-- daily tasks -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="8dp"
+                card_view:cardElevation="8dp"
+                app:cardBackgroundColor="@color/primary"
+                android:layout_marginVertical="15dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-black"
+                        android:textColor="@color/white"
+                        android:layout_marginBottom="5dp"
+                        android:text="Daily Task" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_task1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="· Get 3 matches"/>
+
+                    <TextView
+                        android:id="@+id/tv_profile_task2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="· Play a game of Cupid's Quiz"/>
+
+                    <TextView
+                        android:id="@+id/tv_profile_task3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="· Swipe left on a person"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
             <!-- fabs -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -265,5 +314,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/nav_menu"/>
+        app:itemIconTint="@color/primary"
+        app:itemTextColor="@color/primary"
+        app:menu="@menu/nav_menu"
+        />
 </androidx.drawerlayout.widget.DrawerLayout>

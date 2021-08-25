@@ -23,13 +23,18 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
         Log.v("USER", user!!.toString())
 
+        title = "Profile"
+        //supportActionBar?.elevation = 0F
+
         binding.tvProfileUsername.text = user.username
         binding.tvProfileHeadline.text = user.headline
 
-        if(user.userImage != null && !isEmpty(user.userImage))
+        if(user.userImage != null && !isEmpty(user.userImage)){
             Picasso.get().load(user.userImage).into(binding.ivProfileImage)
-        else
+        }
+        else {
             binding.ivProfileImage.setImageResource(R.drawable.ic_baseline_person_24)
+        }
 
         binding.tvProfileAge.text = user.getAge().toString()
         binding.tvProfileSex.text =  user.sex
