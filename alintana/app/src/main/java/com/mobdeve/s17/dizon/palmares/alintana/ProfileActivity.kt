@@ -8,6 +8,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.ActivityProfileBinding
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
@@ -15,43 +17,21 @@ import com.squareup.picasso.Picasso
 
 class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding : ActivityProfileBinding
+    lateinit var user : User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
-        val user = intent.getSerializableExtra("user") as? User
+
+        user = intent.getSerializableExtra("user") as User
+
+        loadFragment(UserProfileFragment())
 
         Log.v("USER", user!!.toString())
 
         title = "Profile"
         //supportActionBar?.elevation = 0F
 
-        binding.tvProfileUsername.text = user.username
-        binding.tvProfileHeadline.text = user.headline
-
-        if(user.userImage != null && !isEmpty(user.userImage)){
-            Picasso.get().load(user.userImage).into(binding.ivProfileImage)
-        }
-        else {
-            binding.ivProfileImage.setImageResource(R.drawable.ic_baseline_person_24)
-        }
-
-        binding.tvProfileAge.text = user.getAge().toString()
-        binding.tvProfileSex.text =  user.sex
-        binding.tvProfileLoc.text =  user.location
-
-        if(user.sex.equals("Prefer Not to Say", true)){
-            binding.tvProfileSep1.visibility = View.GONE
-            binding.tvProfileSex.visibility = View.GONE
-        }
-        if(isEmpty(user.location)){
-            binding.tvProfileSep2.visibility = View.GONE
-            binding.tvProfileLoc.visibility = View.GONE
-        }
-
-        binding.tvProfileLvl.text = (user.experience/100).toString()
-        binding.progressBar.progress = user.experience%100
-        binding.progressBar.progressTintList = ColorStateList.valueOf(resources.getColor(R.color.primary))
 
         // toolbar
         setSupportActionBar(binding.toolbarProfile)
@@ -73,9 +53,26 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
     // navigation bar functions
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        return false
+        var id : Int = item.itemId
+
+        when (id){
+            R.id.menu_myprofile -> loadFragment(UserProfileFragment())
+            R.id.menu_editprofile -> loadFragment(EditProfileFragment())
+            else -> loadFragment(UserProfileFragment())
+        }
+
+
+        return true
     }
     override fun onPointerCaptureChanged(hasCapture: Boolean) {
         TODO("Not yet implemented")
     }
+
+    fun loadFragment(fragment: Fragment){
+        var transaction : FragmentTransaction = supportFragmentManager.beginTransaction();
+        transaction.replace(R.id.container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
 }

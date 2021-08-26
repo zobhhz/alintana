@@ -80,10 +80,13 @@ class LoginFragment : Fragment() {
                     if(p1.body()?.status.equals("success")){
                         Toast.makeText(activity!!.applicationContext, p1.body()?.message.toString() + " "+ p1.body()?.data?.username, Toast.LENGTH_LONG).show()
                         val rawData = p1.body()?.data!!
-                        val user = User(rawData._id, rawData.username, rawData.birthdate, rawData.sex, rawData.location, rawData.location, rawData.headline, rawData.experience, rawData.createdAt, rawData.userImage)
+                        val user = User(rawData._id, rawData.username, rawData.birthdate, rawData.sex, rawData.mobileNumber, rawData.location, rawData.headline, rawData.experience, rawData.createdAt, rawData.userImage)
 
                         val gotoProfile : Intent = Intent(activity?.baseContext, ProfileActivity::class.java)
+//                        val gotoEditProfile: Intent  = Intent(activity?.baseContext, EditProfileActivity::class.java)
+
                         gotoProfile.putExtra("user", user)
+//                        gotoEditProfile.putExtra("user", user)
                         startActivity(gotoProfile)
 
                     }else{

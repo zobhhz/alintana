@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".UserProfileFragment"
+    android:layout_marginVertical="32dp"
+    >
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp"
+        >
+
+        <!-- profile -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!--             profile image -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_profile_image"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                android:src="@drawable/ic_baseline_person_24"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10dp">
+
+                <!--                username -->
+                <TextView
+                    android:id="@+id/tv_profile_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="BigJohnnyDoeDoe"
+                    android:textColor="@color/primary"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="24sp"
+                    android:layout_marginBottom="5dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp"
+                    >
+
+                    <!--                    age -->
+                    <TextView
+                        android:id="@+id/tv_profile_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="18"
+                        android:layout_marginHorizontal="4dp"
+                        />
+
+                    <!--                    separator -->
+                    <TextView
+                        android:id="@+id/tv_profile_sep1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="|"
+                        android:layout_marginHorizontal="4dp"
+                        />
+
+                    <!--                    sex -->
+                    <TextView
+                        android:id="@+id/tv_profile_sex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="Male"
+                        android:layout_marginHorizontal="4dp"
+                        />
+
+                    <!--                    separator -->
+                    <TextView
+                        android:id="@+id/tv_profile_sep2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="|"
+                        android:layout_marginHorizontal="4dp"
+                        />
+
+                    <!--                    location -->
+                    <TextView
+                        android:id="@+id/tv_profile_loc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="Philippines"
+                        android:layout_marginHorizontal="4dp"
+                        />
+                </LinearLayout>
+
+                <!--                leveling -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tv_profile_lvl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/circle"
+                        android:text="1"
+                        android:padding="5dp"
+                        android:backgroundTint="@color/primary"
+                        android:textColor="@color/white"
+                        />
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- headline -->
+        <TextView
+            android:id="@+id/tv_profile_headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            android:padding="8dp"
+            />
+
+        <!-- find match button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_profile_match"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="FIND MATCH"
+            app:backgroundTint="@color/primary"
+            app:strokeColor="@color/primary"
+            app:cornerRadius="8dp"
+            app:strokeWidth="2dp"
+            android:padding="8dp"
+            android:textColor="@color/white"
+            />
+
+        <!-- edit profile button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_profile_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="EDIT PROFILE"
+            app:backgroundTint="@color/white"
+            app:strokeColor="@color/primary"
+            app:cornerRadius="8dp"
+            app:strokeWidth="2dp"
+            android:padding="8dp"
+            android:textColor="@color/primary"
+            />
+
+        <!-- daily tasks -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="8dp"
+            card_view:cardElevation="8dp"
+            app:cardBackgroundColor="@color/primary"
+            android:layout_marginVertical="15dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="5dp"
+                    android:text="Daily Task" />
+
+                <TextView
+                    android:id="@+id/tv_profile_task1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="· Get 3 matches"/>
+
+                <TextView
+                    android:id="@+id/tv_profile_task2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="· Play a game of Cupid's Quiz"/>
+
+                <TextView
+                    android:id="@+id/tv_profile_task3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="· Swipe left on a person"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- fabs -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- matches fab -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="15dp"
+                >
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_profile_matches"
+                    android:layout_width="96dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_favorite_24"
+                    android:layout_marginBottom="8dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MATCHES"
+                    android:textAlignment="center"
+                    />
+            </LinearLayout>
+
+            <!-- games fab -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="15dp"
+                >
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_profile_games"
+                    android:layout_width="96dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_gamepad_24"
+                    android:layout_marginBottom="8dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GAMES"
+                    android:textAlignment="center"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,13 @@
 package com.mobdeve.s17.dizon.palmares.alintana.model
 
 import android.util.Log
+import android.widget.Toast
 import com.google.gson.annotations.SerializedName
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 import java.io.Serializable
 import java.lang.Integer.parseInt
 import java.text.SimpleDateFormat
@@ -75,7 +77,7 @@ class User : Serializable{
     ) {
         this._id = _id
         this.username = username
-        this.birthdate = birthdate!!
+        this.birthdate = convertJSONDateToString(birthdate!!)
         this.sex = sex
         if (mobileNumber != null) {
             this.mobileNumber = mobileNumber
@@ -87,14 +89,42 @@ class User : Serializable{
             this.headline = headline
         }
         this.experience = experience
-        this.createdAt = createdAt
+        this.createdAt = convertJSONDateToString(createdAt)
         if (userImage != null){
             this.userImage = userImage
         }
     }
 
     constructor(id : String){
-        APIClient.create().getUserById(id).enqueue(object : Callback<UserResponse>{
+        var call = APIClient.create().getUserById(id);
+
+        try{
+            var result: Response<UserResponse> = call.execute()
+
+            this._id = result.body()!!._id
+            this.username = result.body()!!.username
+            this.sex = result.body()!!.sex
+            this.mobileNumber = result.body()!!.mobileNumber
+            this.birthdate = convertJSONDateToString(result.body()!!.birthdate)
+            this.location = result.body()!!.location
+            this.experience = result.body()!!.experience
+            this.createdAt = convertJSONDateToString(result.body()!!.createdAt)
+
+            if (result.body()!!.location != null) {
+                this.location = result.body()!!.location
+            }
+            if (result.body()!!.headline != null) {
+                this.headline = result.body()!!.headline
+            }
+            if (result.body()!!.userImage != null){
+                this.userImage = result.body()!!.userImage
+            }
+        }catch(e : IOException){
+            Log.e("CANNOT FIND USER", e.message.toString())
+        }
+
+        /*
+        enqueue(object : Callback<UserResponse>{
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 Log.v("USER: ", response.toString())
                 _id = response.body()!!._id
@@ -117,11 +147,12 @@ class User : Serializable{
                 }
 
             }
-
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 TODO("Not yet implemented")
             }
         })
+
+         */
 
 
 
@@ -131,9 +162,11 @@ class User : Serializable{
         val today : Calendar = Calendar.getInstance()
         val dob : Calendar = Calendar.getInstance()
 
-        val year = parseInt(this.birthdate.substring(0,4))
-        val month = parseInt(this.birthdate.substring(5,7))
-        val day = parseInt(this.birthdate.substring(8,10))
+        var dates = this.birthdate.split("/")
+
+        val year = parseInt(dates[2])
+        val month = parseInt(dates[0])
+        val day = parseInt(dates[1])
 
         dob.set(year,month,day)
 
@@ -148,6 +181,12 @@ class User : Serializable{
     fun getTextBoD():String{
         val parse = SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(this.birthdate.substring(0,10))
         return SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH).format(parse)
-
     }
+    fun convertJSONDateToString(jsonString : String): String{
+        val parse = SimpleDateFormat("yyyy-MM-dd").parse(jsonString.substring(0,10))
+        return SimpleDateFormat("MM/dd/yyyy").format(parse)
+    }
+
+
+
 }
