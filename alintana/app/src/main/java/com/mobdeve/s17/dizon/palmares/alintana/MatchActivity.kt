@@ -27,7 +27,7 @@ class MatchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMatchBinding.inflate(layoutInflater)
 
-        user = User("6121efcc42a0960ae5470554")
+        user = User("6123d3c9825c9e0a44c7a952")
 
         matchAdapter = MatchAdapter(applicationContext, matches, user)
         binding.rvPossibleMatches.layoutManager = NoScrollHorizontalLayoutManager(applicationContext)

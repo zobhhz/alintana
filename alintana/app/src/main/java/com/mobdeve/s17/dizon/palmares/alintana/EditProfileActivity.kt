@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.ActivityEditProfileBinding
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
 import kotlinx.coroutines.*
@@ -25,23 +26,16 @@ class EditProfileActivity : AppCompatActivity() {
         val prefList = listOf("Any", "Male", "Female", "Non-binary", "Gay", "Lesbian", "Other")
         val prefAdapter = ArrayAdapter(applicationContext, R.layout.item_list, prefList)
         (binding.actvPref)?.setAdapter(prefAdapter)
-        Log.d("GETTING USER", "USER")
-        user = async {User("6123d3c9825c9e0a44c7a952")}
-        Log.d("ON START", "HELLOOOOOOOOOOO")
+        user = (intent.getSerializableExtra("user") as? User)!!
 
-        Log.d("GUSER:", "HELOOO")
         binding.etUsername.setText(user.username)
         binding.etBirthdate.setText(user.birthdate)
-        binding.actvSex.setText(user.sex)
+        binding.actvSex.setText(sexAdapter.getItem(sexAdapter.getPosition(user.sex)), false)
+        binding.actvPref.setText(prefAdapter.getItem(0), false)
         binding.etHeadline.setText(user.headline)
+        binding.actvLoc.setText(user.location)
         binding.actvMobilenumber.setText(user.mobileNumber)
-
         setContentView(binding.root)
     }
 
-    override fun onStart() {
-        super.onStart()
-
-
-    }
 }
