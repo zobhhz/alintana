@@ -14,7 +14,7 @@ interface APIInterface {
     fun loginUser(@Body loginInformation: LoginInformation) : Call<LoginResponse>
 
     @GET("api/v1/user/{id}")
-    fun getUserById(@Path("id") id : String): Call<UserResponse>
+    fun getUserById(@Path("id") name : String): Call<UserResponse>
 
     @GET("api/v1/match/possible/{id}")
     fun getPossibleMatches(@Path("id") id : String): Call<PossibleMatchesResponse>
