@@ -67,20 +67,12 @@ class MainActivity : AppCompatActivity() {
             binding.tvWelcome.setBackgroundResource(0)
             loadFragment(LoginFragment())
         }
-
-
-
-
     }
 
-
-
     fun loadFragment(fragment: Fragment){
-
         var transaction : FragmentTransaction = supportFragmentManager.beginTransaction();
         transaction.replace(R.id.container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
-
     }
 }
