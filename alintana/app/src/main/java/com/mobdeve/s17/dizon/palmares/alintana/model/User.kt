@@ -49,7 +49,7 @@ class User : Serializable{
     ) {
         this._id = _id
         this.username = username
-        this.birthdate = birthdate!!
+        this.birthdate = convertJSONDateToString(birthdate!!)
         this.sex = sex
         if (mobileNumber != null) {
             this.mobileNumber = mobileNumber
@@ -161,9 +161,13 @@ class User : Serializable{
     fun getAge():Int{
         val today : Calendar = Calendar.getInstance()
         val dob : Calendar = Calendar.getInstance()
+        Log.v("AGE", this.birthdate)
+
+        if(!this.birthdate.contains("/"))
+            this.birthdate = convertJSONDateToString(this.birthdate)
+
 
         var dates = this.birthdate.split("/")
-
         val year = parseInt(dates[2])
         val month = parseInt(dates[0])
         val day = parseInt(dates[1])

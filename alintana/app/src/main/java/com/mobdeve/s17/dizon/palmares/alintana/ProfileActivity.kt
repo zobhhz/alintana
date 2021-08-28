@@ -54,14 +54,12 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     // navigation bar functions
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         var id : Int = item.itemId
-
         when (id){
             R.id.menu_myprofile -> loadFragment(UserProfileFragment())
             R.id.menu_editprofile -> loadFragment(EditProfileFragment())
+            R.id.menu_find_match -> loadFragment(MatchFragment())
             else -> loadFragment(UserProfileFragment())
         }
-
-
         return true
     }
     override fun onPointerCaptureChanged(hasCapture: Boolean) {
