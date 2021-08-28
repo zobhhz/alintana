@@ -1,11 +1,8 @@
 package com.mobdeve.s17.dizon.palmares.alintana
 
-import android.content.res.ColorStateList
 import android.os.Bundle
-import android.text.TextUtils.isEmpty
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -13,7 +10,6 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.ActivityProfileBinding
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
-import com.squareup.picasso.Picasso
 
 class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding : ActivityProfileBinding
@@ -30,8 +26,9 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         Log.v("USER", user!!.toString())
 
         title = "Profile"
-        //supportActionBar?.elevation = 0F
 
+        // app bar text color
+        binding.toolbarProfile.setTitleTextColor(resources.getColor(R.color.primary))
 
         // toolbar
         setSupportActionBar(binding.toolbarProfile)
@@ -47,6 +44,9 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         binding.dlProfile.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
+
+        // change hamburger icon color
+        actionBarDrawerToggle.drawerArrowDrawable.color = resources.getColor(R.color.primary)
 
         setContentView(binding.root)
     }

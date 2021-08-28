@@ -210,26 +210,78 @@
                     android:layout_marginBottom="5dp"
                     android:text="Daily Task" />
 
-                <TextView
-                    android:id="@+id/tv_profile_task1"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="· Get 3 matches"/>
+                    android:orientation="horizontal"
+                    android:weightSum="10"
+                    android:gravity="center">
 
-                <TextView
-                    android:id="@+id/tv_profile_task2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="· Play a game of Cupid's Quiz"/>
+                    <TextView
+                        android:id="@+id/tv_profile_task1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="· Get 3 matches"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tv_profile_task1_counter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="2/3"
+                        android:layout_weight="9"
+                        android:textAlignment="textEnd"/>
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_profile_task3"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="· Swipe left on a person"/>
+                    android:orientation="horizontal"
+                    android:weightSum="10"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tv_profile_task2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="· Play a game"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tv_profile_task2_counter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="1/1"
+                        android:layout_weight="9"
+                        android:textAlignment="textEnd"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tv_profile_task3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="· Swipe left on a person"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tv_profile_task3_counter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="0/1"
+                        android:layout_weight="9"
+                        android:textAlignment="textEnd"/>
+                </LinearLayout>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

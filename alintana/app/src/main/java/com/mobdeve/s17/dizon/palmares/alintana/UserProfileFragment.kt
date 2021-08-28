@@ -3,13 +3,12 @@ package com.mobdeve.s17.dizon.palmares.alintana
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.TextUtils
-import android.text.TextUtils.isEmpty
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentTransaction
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentUserProfileBinding
-import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentWelcomeBinding
 import com.squareup.picasso.Picasso
 
 
@@ -66,6 +65,11 @@ class UserProfileFragment : BaseProfileFragment() {
         binding.progressBar.progress = user.experience%100
         binding.progressBar.progressTintList = ColorStateList.valueOf(resources.getColor(R.color.primary))
 
+        binding.btnProfileMatch.setOnClickListener {
+//            loadFragment(MatchFragment())
+
+        }
+
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -75,5 +79,10 @@ class UserProfileFragment : BaseProfileFragment() {
         _binding = null
     }
 
-
+//    fun loadFragment(fragment: Fragment){
+//        var transaction : FragmentTransaction = supportFragmentManager.beginTransaction();
+//        transaction.replace(R.id.container, fragment)
+//        transaction.addToBackStack(null)
+//        transaction.commit()
+//    }
 }
