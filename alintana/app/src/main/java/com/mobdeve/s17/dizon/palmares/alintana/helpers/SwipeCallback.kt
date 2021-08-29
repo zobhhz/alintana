@@ -1,4 +1,4 @@
-package com.mobdeve.s17.dizon.palmares.alintana
+package com.mobdeve.s17.dizon.palmares.alintana.helpers
 
 import android.graphics.Canvas
 import android.graphics.Color

@@ -1,7 +1,8 @@
-package com.mobdeve.s17.dizon.palmares.alintana
+package com.mobdeve.s17.dizon.palmares.alintana.helpers
 
 import android.content.Context
 import androidx.fragment.app.Fragment
+import com.mobdeve.s17.dizon.palmares.alintana.ProfileActivity
 
 
 abstract class BaseProfileFragment : Fragment() {

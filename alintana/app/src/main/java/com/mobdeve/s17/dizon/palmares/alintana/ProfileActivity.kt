@@ -58,6 +58,7 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             R.id.menu_myprofile -> loadFragment(UserProfileFragment())
             R.id.menu_editprofile -> loadFragment(EditProfileFragment())
             R.id.menu_find_match -> loadFragment(MatchFragment())
+            R.id.menu_my_matches -> loadFragment(MatchListFragment())
             else -> loadFragment(UserProfileFragment())
         }
         return true

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentEditProfileBinding
-import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentUserProfileBinding
+import com.mobdeve.s17.dizon.palmares.alintana.helpers.BaseProfileFragment
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
 
 // TODO: Rename parameter arguments, choose names that match

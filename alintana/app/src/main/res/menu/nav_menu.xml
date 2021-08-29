@@ -9,6 +9,10 @@
         android:title="Edit Profile"
         android:icon="@drawable/ic_twotone_edit_24" />
     <item
+        android:id="@+id/menu_my_matches"
+        android:title="My Matches"
+        android:icon="@drawable/ic_baseline_list_24" />
+    <item
         android:id="@+id/menu_find_match"
         android:title="Find A Match"
         android:icon="@drawable/ic_baseline_favorite_24" />

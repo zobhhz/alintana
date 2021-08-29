@@ -1,23 +1,18 @@
 package com.mobdeve.s17.dizon.palmares.alintana
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.DatePicker
 import android.widget.Toast
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentSignUpBinding
 import com.mobdeve.s17.dizon.palmares.alintana.model.RegisterInformation
-import com.mobdeve.s17.dizon.palmares.alintana.model.RegisterResponse
-import com.mobdeve.s17.dizon.palmares.alintana.model.User
+import com.mobdeve.s17.dizon.palmares.alintana.model.response.RegisterResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

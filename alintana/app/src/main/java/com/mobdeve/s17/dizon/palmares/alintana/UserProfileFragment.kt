@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentTransaction
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentUserProfileBinding
+import com.mobdeve.s17.dizon.palmares.alintana.helpers.BaseProfileFragment
 import com.squareup.picasso.Picasso
 
 

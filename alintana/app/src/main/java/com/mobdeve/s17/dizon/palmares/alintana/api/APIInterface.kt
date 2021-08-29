@@ -1,6 +1,7 @@
 package com.mobdeve.s17.dizon.palmares.alintana.api
 
 import com.mobdeve.s17.dizon.palmares.alintana.model.*
+import com.mobdeve.s17.dizon.palmares.alintana.model.response.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -17,10 +18,13 @@ interface APIInterface {
     fun getUserById(@Path("id") name : String): Call<UserResponse>
 
     @GET("api/v1/match/possible/{id}")
-    fun getPossibleMatches(@Path("id") id : String): Call<PossibleMatchesResponse>
+    fun getPossibleMatches(@Path("id") id : String): Call<MatchesResponse>
 
+    @GET("api/v1/match/{id}")
+    fun getMyMatches(@Path("id") id : String) : Call<MatchesResponse>
 
     @POST("api/v1/match/add")
     fun addMatch(@Body addMatchInformation: AddMatchInformation) : Call<AddMatchResponse>
+
 
 }

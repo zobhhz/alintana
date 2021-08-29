@@ -1,11 +1,9 @@
 package com.mobdeve.s17.dizon.palmares.alintana.model
 
 import android.util.Log
-import android.widget.Toast
 import com.google.gson.annotations.SerializedName
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
-import retrofit2.Call
-import retrofit2.Callback
+import com.mobdeve.s17.dizon.palmares.alintana.model.response.UserResponse
 import retrofit2.Response
 import java.io.IOException
 import java.io.Serializable

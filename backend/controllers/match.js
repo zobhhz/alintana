@@ -46,15 +46,11 @@ exports.addMatch = async (req, res, next) => {
 exports.getMatched = async (req, res, next) => {
     try {
         const sender = req.params.id;
-
-        const matchList = await Match.find({ sender: req.params.id });
-
+        const matchList = await Match.find({ sender });
+        console.log("MATCHLIST", matchList);
         const matchedId = matchList.map((item) => item.receiver);
-
-        const pairs = await Match.find({ sender: { $in: matchedId }, receiver: req.params.id });
-
+        const pairs = await Match.find({ sender: { $in: matchedId }, receiver: sender });
         const pairsId = pairs.map((item) => item.sender);
-
         const data = await User.find({ _id: { $in: [...pairsId] } });
 
         res.status(200).json({
