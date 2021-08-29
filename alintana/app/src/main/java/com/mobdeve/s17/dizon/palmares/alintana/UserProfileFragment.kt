@@ -66,8 +66,13 @@ class UserProfileFragment : BaseProfileFragment() {
         binding.progressBar.progressTintList = ColorStateList.valueOf(resources.getColor(R.color.primary))
 
         binding.btnProfileMatch.setOnClickListener {
-//            loadFragment(MatchFragment())
+            (requireActivity() as ProfileActivity).loadFragment(MatchFragment())
+            ACTIVITY.binding.navView.setCheckedItem(R.id.menu_find_match)
+        }
 
+        binding.btnProfileEdit.setOnClickListener {
+            (requireActivity() as ProfileActivity).loadFragment(EditProfileFragment())
+            ACTIVITY.binding.navView.setCheckedItem(R.id.menu_editprofile)
         }
 
         // Inflate the layout for this fragment
@@ -78,11 +83,4 @@ class UserProfileFragment : BaseProfileFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-//    fun loadFragment(fragment: Fragment){
-//        var transaction : FragmentTransaction = supportFragmentManager.beginTransaction();
-//        transaction.replace(R.id.container, fragment)
-//        transaction.addToBackStack(null)
-//        transaction.commit()
-//    }
 }

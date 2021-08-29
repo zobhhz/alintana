@@ -1,16 +1,13 @@
 package com.mobdeve.s17.dizon.palmares.alintana
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.mobdeve.s17.dizon.palmares.alintana.adapter.MatchAdapter
 import com.mobdeve.s17.dizon.palmares.alintana.adapter.MyMatchesAdapter
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
-import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentMatchBinding
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentMatchListBinding
 import com.mobdeve.s17.dizon.palmares.alintana.helpers.BaseProfileFragment
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
@@ -40,6 +37,12 @@ class MatchListFragment : BaseProfileFragment() {
 
         myMatchAdapter = MyMatchesAdapter(requireActivity().applicationContext, matches, user)
         binding.rvMyMatches.layoutManager = LinearLayoutManager(requireActivity().applicationContext,LinearLayoutManager.VERTICAL, false)
+        binding.rvMyMatches.addItemDecoration(
+            DividerItemDecoration(
+                requireActivity().applicationContext,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         binding.rvMyMatches.adapter = myMatchAdapter
 
         loadData()

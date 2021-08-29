@@ -12,7 +12,7 @@ import com.mobdeve.s17.dizon.palmares.alintana.databinding.ActivityProfileBindin
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
 
 class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private lateinit var binding : ActivityProfileBinding
+    public lateinit var binding : ActivityProfileBinding
     lateinit var user : User
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +61,7 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             R.id.menu_my_matches -> loadFragment(MatchListFragment())
             else -> loadFragment(UserProfileFragment())
         }
+        binding.dlProfile.closeDrawers()
         return true
     }
     override fun onPointerCaptureChanged(hasCapture: Boolean) {

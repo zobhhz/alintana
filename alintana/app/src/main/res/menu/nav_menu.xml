@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/menu_myprofile"
-        android:title="My Profile"
-        android:icon="@drawable/ic_baseline_person_24" />
-    <item
-        android:id="@+id/menu_editprofile"
-        android:title="Edit Profile"
-        android:icon="@drawable/ic_twotone_edit_24" />
-    <item
-        android:id="@+id/menu_my_matches"
-        android:title="My Matches"
-        android:icon="@drawable/ic_baseline_list_24" />
-    <item
-        android:id="@+id/menu_find_match"
-        android:title="Find A Match"
-        android:icon="@drawable/ic_baseline_favorite_24" />
-    <item
-        android:id="@+id/menu_game"
-        android:title="Games"
-        android:icon="@drawable/ic_baseline_gamepad_24" />
-    <item
-        android:id="@+id/menu_setting"
-        android:title="Settings"
-        android:icon="@drawable/ic_baseline_settings_24" />
-    <item
-        android:id="@+id/menu_logout"
-        android:title="Logout"
-        android:icon="@drawable/ic_outline_logout_24" />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_myprofile"
+            android:title="My Profile"
+            android:icon="@drawable/ic_baseline_person_24"
+            android:checked="true"/>
+        <item
+            android:id="@+id/menu_editprofile"
+            android:title="Edit Profile"
+            android:icon="@drawable/ic_twotone_edit_24" />
+        <item
+            android:id="@+id/menu_my_matches"
+            android:title="My Matches"
+            android:icon="@drawable/ic_baseline_list_24" />
+        <item
+            android:id="@+id/menu_find_match"
+            android:title="Find A Match"
+            android:icon="@drawable/ic_baseline_favorite_24" />
+        <item
+            android:id="@+id/menu_game"
+            android:title="Games"
+            android:icon="@drawable/ic_baseline_gamepad_24" />
+        <item
+            android:id="@+id/menu_setting"
+            android:title="Settings"
+            android:icon="@drawable/ic_baseline_settings_24" />
+        <item
+            android:id="@+id/menu_logout"
+            android:title="Logout"
+            android:icon="@drawable/ic_outline_logout_24" />
+    </group>
 </menu>
