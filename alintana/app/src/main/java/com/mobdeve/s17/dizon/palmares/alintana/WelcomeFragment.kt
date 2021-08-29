@@ -55,6 +55,7 @@ class WelcomeFragment : Fragment() {
             tvSignUp.setBackgroundResource(0)
             tvWelcome.setBackgroundResource(0)
             (requireActivity() as MainActivity).loadFragment(LoginFragment())
+            
         }
 
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.mobdeve.s17.dizon.palmares.alintana.R
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
+import com.mobdeve.s17.dizon.palmares.alintana.model.AddExperienceInformation
 import com.mobdeve.s17.dizon.palmares.alintana.model.AddMatchInformation
 import com.mobdeve.s17.dizon.palmares.alintana.model.response.AddMatchResponse
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
@@ -60,7 +61,9 @@ class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user:
 
     fun removeMatchCard(position: Int, type: Int){
         if(type == ItemTouchHelper.RIGHT){
-            APIClient.create().addMatch(AddMatchInformation(user._id, matches[position]._id)).enqueue(object : Callback<AddMatchResponse>{
+            var client = APIClient.create()
+
+            client.addMatch(AddMatchInformation(user._id, matches[position]._id)).enqueue(object : Callback<AddMatchResponse>{
                 override fun onResponse(
                     call: Call<AddMatchResponse>,
                     response: Response<AddMatchResponse>
@@ -68,7 +71,18 @@ class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user:
                     Toast.makeText(context, "You liked " + matches[position].username, Toast.LENGTH_LONG).show()
                     matches.removeAt(position)
                     notifyItemRemoved(position);
+                    client.addExperience(AddExperienceInformation(user._id, 50)).enqueue(object: Callback<User>{
+                        override fun onResponse(call: Call<User>, response: Response<User>) {
+                            user.experience = response.body()!!.experience
+                            Toast.makeText(context, "You gained 50xp", Toast.LENGTH_LONG).show()
+
+                        }
+                        override fun onFailure(call: Call<User>, t: Throwable) {
+                            TODO("Not yet implemented")
+                        }
+                    })
                 }
+
 
                 override fun onFailure(call: Call<AddMatchResponse>, t: Throwable) {
 

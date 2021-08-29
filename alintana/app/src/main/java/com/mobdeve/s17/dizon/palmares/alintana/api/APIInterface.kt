@@ -15,13 +15,16 @@ interface APIInterface {
     fun loginUser(@Body loginInformation: LoginInformation) : Call<LoginResponse>
 
     @GET("api/v1/user/{id}")
-    fun getUserById(@Path("id") name : String): Call<UserResponse>
+    fun getUserById(@Path("id") name : String): Call<User>
 
     @GET("api/v1/match/possible/{id}")
     fun getPossibleMatches(@Path("id") id : String): Call<MatchesResponse>
 
     @GET("api/v1/match/{id}")
     fun getMyMatches(@Path("id") id : String) : Call<MatchesResponse>
+
+    @POST("api/v1/user/exp/add")
+    fun addExperience(@Body addExperienceInformation: AddExperienceInformation) : Call<User>
 
     @POST("api/v1/match/add")
     fun addMatch(@Body addMatchInformation: AddMatchInformation) : Call<AddMatchResponse>

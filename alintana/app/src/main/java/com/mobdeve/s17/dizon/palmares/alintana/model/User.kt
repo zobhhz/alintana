@@ -93,69 +93,6 @@ class User : Serializable{
         }
     }
 
-    constructor(id : String){
-        var call = APIClient.create().getUserById(id);
-
-        try{
-            var result: Response<UserResponse> = call.execute()
-
-            this._id = result.body()!!._id
-            this.username = result.body()!!.username
-            this.sex = result.body()!!.sex
-            this.mobileNumber = result.body()!!.mobileNumber
-            this.birthdate = convertJSONDateToString(result.body()!!.birthdate)
-            this.location = result.body()!!.location
-            this.experience = result.body()!!.experience
-            this.createdAt = convertJSONDateToString(result.body()!!.createdAt)
-
-            if (result.body()!!.location != null) {
-                this.location = result.body()!!.location
-            }
-            if (result.body()!!.headline != null) {
-                this.headline = result.body()!!.headline
-            }
-            if (result.body()!!.userImage != null){
-                this.userImage = result.body()!!.userImage
-            }
-        }catch(e : IOException){
-            Log.e("CANNOT FIND USER", e.message.toString())
-        }
-
-        /*
-        enqueue(object : Callback<UserResponse>{
-            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                Log.v("USER: ", response.toString())
-                _id = response.body()!!._id
-                username = response.body()!!.username
-                birthdate = response.body()!!.birthdate
-                sex = response.body()!!.sex
-                experience = response.body()!!.experience
-                createdAt = response.body()!!.createdAt
-                if(response.body()?.location != null){
-                    location = response.body()!!.location
-                }
-                if(response.body()?.headline != null){
-                    headline = response.body()!!.headline
-                }
-                if(response.body()?.mobileNumber != null){
-                    mobileNumber = response.body()!!.mobileNumber
-                }
-                if(response.body()?.userImage != null){
-                    userImage = response.body()!!.userImage
-                }
-
-            }
-            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
-
-         */
-
-
-
-    }
-
     fun getAge():Int{
         val today : Calendar = Calendar.getInstance()
         val dob : Calendar = Calendar.getInstance()

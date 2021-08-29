@@ -7,9 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentUserProfileBinding
 import com.mobdeve.s17.dizon.palmares.alintana.helpers.BaseProfileFragment
+import com.mobdeve.s17.dizon.palmares.alintana.model.User
 import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 /**
@@ -22,9 +27,26 @@ class UserProfileFragment : BaseProfileFragment() {
 
     private var _binding: FragmentUserProfileBinding? = null
     private val binding get() = _binding!!
+    private lateinit var user : User
+    var client = APIClient.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        client.getUserById(user._id).enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                ACTIVITY.user = response.body()!!
+                user = ACTIVITY.user
+                bindUserData()
+            }
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
 
     }
 
@@ -33,11 +55,27 @@ class UserProfileFragment : BaseProfileFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        var user = ACTIVITY.user
+        user = ACTIVITY.user
 
         ACTIVITY.title = "My Profile"
 
         _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
+        bindUserData()
+        binding.btnProfileMatch.setOnClickListener {
+            (requireActivity() as ProfileActivity).loadFragment(MatchFragment())
+            ACTIVITY.binding.navView.setCheckedItem(R.id.menu_find_match)
+        }
+
+        binding.btnProfileEdit.setOnClickListener {
+            (requireActivity() as ProfileActivity).loadFragment(EditProfileFragment())
+            ACTIVITY.binding.navView.setCheckedItem(R.id.menu_editprofile)
+        }
+
+        // Inflate the layout for this fragment
+        return binding.root
+    }
+
+    fun bindUserData(){
         binding.tvProfileUsername.text = user.username
         binding.tvProfileHeadline.text = user.headline
 
@@ -48,7 +86,7 @@ class UserProfileFragment : BaseProfileFragment() {
             binding.ivProfileImage.setImageResource(R.drawable.ic_baseline_person_24)
         }
 
-      binding.tvProfileAge.text = user.getAge().toString()
+        binding.tvProfileAge.text = user.getAge().toString()
         binding.tvProfileSex.text =  user.sex
         binding.tvProfileLoc.text =  user.location
 
@@ -65,19 +103,11 @@ class UserProfileFragment : BaseProfileFragment() {
         binding.progressBar.progress = user.experience%100
         binding.progressBar.progressTintList = ColorStateList.valueOf(resources.getColor(R.color.primary))
 
-        binding.btnProfileMatch.setOnClickListener {
-            (requireActivity() as ProfileActivity).loadFragment(MatchFragment())
-            ACTIVITY.binding.navView.setCheckedItem(R.id.menu_find_match)
-        }
-
-        binding.btnProfileEdit.setOnClickListener {
-            (requireActivity() as ProfileActivity).loadFragment(EditProfileFragment())
-            ACTIVITY.binding.navView.setCheckedItem(R.id.menu_editprofile)
-        }
-
-        // Inflate the layout for this fragment
-        return binding.root
     }
+
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
