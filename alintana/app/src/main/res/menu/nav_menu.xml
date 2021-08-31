@@ -22,10 +22,10 @@
             android:id="@+id/menu_game"
             android:title="Games"
             android:icon="@drawable/ic_baseline_gamepad_24" />
-        <item
-            android:id="@+id/menu_setting"
-            android:title="Settings"
-            android:icon="@drawable/ic_baseline_settings_24" />
+<!--        <item-->
+<!--            android:id="@+id/menu_setting"-->
+<!--            android:title="Settings"-->
+<!--            android:icon="@drawable/ic_baseline_settings_24" />-->
         <item
             android:id="@+id/menu_logout"
             android:title="Logout"
