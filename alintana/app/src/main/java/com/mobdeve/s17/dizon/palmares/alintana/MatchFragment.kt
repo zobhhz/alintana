@@ -40,9 +40,11 @@ class MatchFragment : BaseProfileFragment()  {
         ACTIVITY.title = "Find a Match"
         _binding = FragmentMatchBinding.inflate(inflater, container, false)
 
-        matchAdapter = MatchAdapter(requireActivity().applicationContext, matches, user)
+        matchAdapter = MatchAdapter(requireActivity().applicationContext, matches, user, binding.tvMatchNotif)
         binding.rvPossibleMatches.layoutManager = NoScrollHorizontalLayoutManager(requireActivity().applicationContext)
         binding.rvPossibleMatches.adapter = matchAdapter
+
+
 
         itemTouchHelper = ItemTouchHelper(SwipeCallback(matchAdapter))
         itemTouchHelper.attachToRecyclerView(binding.rvPossibleMatches)
@@ -62,6 +64,11 @@ class MatchFragment : BaseProfileFragment()  {
         _binding = null
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadData()
+    }
+
     fun loadData(){
         var tempMatches : ArrayList<User> = ArrayList()
         APIClient.create().getPossibleMatches(user._id).enqueue(object :
@@ -76,9 +83,7 @@ class MatchFragment : BaseProfileFragment()  {
 
             override fun onFailure(call: Call<MatchesResponse>, t: Throwable) {
             }
-
         })
-
     }
 
 

@@ -20,7 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MyMatchesAdapter (var context: Context, var matches: ArrayList<User>, var user: User): RecyclerView.Adapter<MyMatchesAdapter.MyMatchesViewHolder>() {
+class MyMatchesAdapter (var context: Context, var matches: ArrayList<User>, var user: User, var notif: TextView): RecyclerView.Adapter<MyMatchesAdapter.MyMatchesViewHolder>() {
 
     override fun getItemCount(): Int{
         return matches.size
@@ -60,6 +60,11 @@ class MyMatchesAdapter (var context: Context, var matches: ArrayList<User>, var 
         this.matches.clear()
         this.matches.addAll(matches)
         notifyDataSetChanged()
+
+        if(itemCount < 1){
+            notif.text = "You haven't found a match yet T_T"
+        }
+
     }
 
 

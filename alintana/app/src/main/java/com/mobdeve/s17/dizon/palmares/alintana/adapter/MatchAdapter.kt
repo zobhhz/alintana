@@ -21,13 +21,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user: User): RecyclerView.Adapter<MatchAdapter.MatchViewHolder>() {
+class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user: User, var notif: TextView): RecyclerView.Adapter<MatchAdapter.MatchViewHolder>() {
 
     override fun getItemCount(): Int{
         return matches.size
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchAdapter.MatchViewHolder{
-        return MatchViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.match_card,parent, false))
+
+       return MatchViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.match_card,parent, false))
     }
 
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
@@ -57,6 +58,9 @@ class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user:
         this.matches.clear()
         this.matches.addAll(matches)
         notifyDataSetChanged()
+        if(itemCount < 1){
+            notif.text = "No more users for you OmO"
+        }
     }
 
     fun removeMatchCard(position: Int, type: Int){
@@ -92,7 +96,10 @@ class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user:
             Toast.makeText(context, "You passed on " + matches[position].username, Toast.LENGTH_LONG).show()
             matches.removeAt(position)
             notifyItemRemoved(position);
+        }
 
+        if(itemCount < 1){
+            notif.text = "No more users for you OmO"
         }
 
     }

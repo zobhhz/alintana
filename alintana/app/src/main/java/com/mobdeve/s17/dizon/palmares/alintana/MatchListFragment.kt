@@ -35,7 +35,7 @@ class MatchListFragment : BaseProfileFragment() {
         ACTIVITY.title = "My Matches"
         _binding = FragmentMatchListBinding.inflate(inflater, container, false)
 
-        myMatchAdapter = MyMatchesAdapter(requireActivity().applicationContext, matches, user)
+        myMatchAdapter = MyMatchesAdapter(requireActivity().applicationContext, matches, user, binding.tvMatchlistNotif)
         binding.rvMyMatches.layoutManager = LinearLayoutManager(requireActivity().applicationContext,LinearLayoutManager.VERTICAL, false)
         binding.rvMyMatches.addItemDecoration(
             DividerItemDecoration(
@@ -51,6 +51,11 @@ class MatchListFragment : BaseProfileFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadData()
     }
 
     fun loadData(){

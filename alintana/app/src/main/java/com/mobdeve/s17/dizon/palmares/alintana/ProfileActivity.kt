@@ -1,5 +1,6 @@
 package com.mobdeve.s17.dizon.palmares.alintana
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -59,6 +60,12 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             R.id.menu_editprofile -> loadFragment(EditProfileFragment())
             R.id.menu_find_match -> loadFragment(MatchFragment())
             R.id.menu_my_matches -> loadFragment(MatchListFragment())
+            R.id.menu_game -> loadFragment(GamesListFragment())
+            R.id.menu_logout -> {
+                val gotoMainActivity : Intent = Intent(baseContext, MainActivity::class.java)
+                startActivity(gotoMainActivity)
+                finish()
+            }
             else -> loadFragment(UserProfileFragment())
         }
         binding.dlProfile.closeDrawers()

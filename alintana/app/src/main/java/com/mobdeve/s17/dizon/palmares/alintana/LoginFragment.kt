@@ -2,16 +2,16 @@ package com.mobdeve.s17.dizon.palmares.alintana
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentLoginBinding
 import com.mobdeve.s17.dizon.palmares.alintana.model.LoginInformation
-import com.mobdeve.s17.dizon.palmares.alintana.model.response.LoginResponse
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
+import com.mobdeve.s17.dizon.palmares.alintana.model.response.LoginResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -82,10 +82,11 @@ class LoginFragment : Fragment() {
 
                         val gotoProfile : Intent = Intent(activity?.baseContext, ProfileActivity::class.java)
 //                        val gotoEditProfile: Intent  = Intent(activity?.baseContext, EditProfileActivity::class.java)
-
+                        gotoProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                         gotoProfile.putExtra("user", user)
 //                        gotoEditProfile.putExtra("user", user)
                         startActivity(gotoProfile)
+                        activity!!.finish()
 
                     }else{
                         Toast.makeText(activity!!.applicationContext, "Error: Wrong Username or Password", Toast.LENGTH_LONG).show()
