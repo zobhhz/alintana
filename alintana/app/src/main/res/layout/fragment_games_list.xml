@@ -54,6 +54,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_coming_soon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -62,9 +63,14 @@
         android:text="More coming soon..."
         />
 
-
-
-
-
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_games"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@id/tv_coming_soon"
+        android:layout_marginTop="270dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

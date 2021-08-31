@@ -71,6 +71,15 @@ class UserProfileFragment : BaseProfileFragment() {
             ACTIVITY.binding.navView.setCheckedItem(R.id.menu_editprofile)
         }
 
+        binding.fabProfileMatches.setOnClickListener {
+            (requireActivity() as ProfileActivity).loadFragment(MatchListFragment())
+            ACTIVITY.binding.navView.setCheckedItem(R.id.menu_my_matches)
+        }
+
+        binding.fabProfileGames.setOnClickListener {
+            (requireActivity() as ProfileActivity).loadFragment(GamesListFragment())
+            ACTIVITY.binding.navView.setCheckedItem(R.id.menu_game)
+        }
         // Inflate the layout for this fragment
         return binding.root
     }
