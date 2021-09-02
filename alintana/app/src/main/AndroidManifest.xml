@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Alintana"
         android:usesCleartextTraffic="true">
-        <activity android:name=".GameActivity"></activity>
         <activity
             android:name=".ProfileActivity"
             android:theme="@style/Theme.Alintana.NoActionBar"></activity>
@@ -25,13 +24,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
     </application>
 

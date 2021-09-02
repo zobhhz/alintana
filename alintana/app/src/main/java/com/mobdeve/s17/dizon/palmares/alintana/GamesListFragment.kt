@@ -1,5 +1,6 @@
 package com.mobdeve.s17.dizon.palmares.alintana
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -32,6 +33,12 @@ class GamesListFragment : BaseProfileFragment(){
 
 
         _binding = FragmentGamesListBinding.inflate(inflater, container, false)
+
+//        binding.btnPlay.setOnClickListener {
+//            val gotoGame = Intent(activity?.baseContext, GameActivity::class.java)
+//            gotoGame.putExtra("user", user)
+//            startActivity(gotoGame)
+//        }
         return binding.root
     }
 
