@@ -1,6 +1,7 @@
 package com.mobdeve.s17.dizon.palmares.alintana
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import android.widget.Toast
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentSignUpBinding
 import com.mobdeve.s17.dizon.palmares.alintana.model.RegisterInformation
+import com.mobdeve.s17.dizon.palmares.alintana.model.User
 import com.mobdeve.s17.dizon.palmares.alintana.model.response.RegisterResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,12 +21,6 @@ import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.*
-
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -37,14 +33,9 @@ class SignUpFragment : Fragment() {
     private lateinit var binding : FragmentSignUpBinding
     val calendar : Calendar = getInstance()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
-
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -85,7 +76,6 @@ class SignUpFragment : Fragment() {
                         .show()
                 }
             }
-
         }
 //
 //        binding.etBirthdate.setOnClickListener {
@@ -147,11 +137,12 @@ class SignUpFragment : Fragment() {
 
                         Log.i("USER", p1.body().toString())
 
-//                        val user = User(rawData.username, rawData.birthdate, rawData.sex, rawData.location, rawData.location, rawData.headline, rawData.experience, rawData.createdAt)
-//                        val gotoProfile : Intent = Intent(activity?.baseContext, ProfileActivity::class.java)
-//                        gotoProfile.putExtra("user", user)
-//                        startActivity(gotoProfile)
-
+                        val user = User(rawData._id, rawData.username, rawData.birthdate, rawData.sex,
+                            rawData.mobileNumber, rawData.location, rawData.headline, rawData.experience,
+                            rawData.createdAt)
+                        val gotoProfile : Intent = Intent(activity?.baseContext, ProfileActivity::class.java)
+                        gotoProfile.putExtra("user", user)
+                        startActivity(gotoProfile)
 
                     }else{
                         Toast.makeText(activity!!.applicationContext, "Registration Failed", Toast.LENGTH_LONG).show()
@@ -161,10 +152,7 @@ class SignUpFragment : Fragment() {
                     Toast.makeText(activity!!.applicationContext, p1.message, Toast.LENGTH_LONG).show()
                 }
             })
-
-
         }
-
 
         return binding.root
     }
