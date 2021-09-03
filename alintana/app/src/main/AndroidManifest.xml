@@ -14,8 +14,16 @@
         android:theme="@style/Theme.Alintana"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".GameActivity"
+            android:theme="@style/Theme.Alintana.NoActionBar"
+            android:parentActivityName=".ProfileActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProfileActivity"/>
+        </activity>
+        <activity
             android:name=".ProfileActivity"
-            android:theme="@style/Theme.Alintana.NoActionBar"></activity>
+            android:theme="@style/Theme.Alintana.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.Alintana.NoActionBar">
@@ -25,6 +33,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

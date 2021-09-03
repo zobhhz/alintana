@@ -34,11 +34,11 @@ class GamesListFragment : BaseProfileFragment(){
 
         _binding = FragmentGamesListBinding.inflate(inflater, container, false)
 
-//        binding.btnPlay.setOnClickListener {
-//            val gotoGame = Intent(activity?.baseContext, GameActivity::class.java)
-//            gotoGame.putExtra("user", user)
-//            startActivity(gotoGame)
-//        }
+        binding.btnPlay.setOnClickListener {
+            val gotoGame = Intent(activity?.baseContext, GameActivity::class.java)
+            gotoGame.putExtra("user", user)
+            startActivity(gotoGame)
+        }
         return binding.root
     }
 
