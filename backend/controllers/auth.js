@@ -17,7 +17,9 @@ exports.signup = catchAsync(async (req, res, next) => {
 
     res.status(201).json({
         status: "success",
-        data: newUser,
+        data: {
+            newUser,
+        },
     });
 });
 

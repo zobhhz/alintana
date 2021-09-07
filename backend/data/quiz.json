@@ -1,0 +1,19 @@
+[
+    {
+        "category": "Food",
+        "questions": [
+            {
+                "question": "What is your preferred fastfood chain?",
+                "choices": ["Jollibee", "McDonalds", "KFC", "Popeyes"]
+            },
+            {
+                "question": "What is your preferred cuisine?",
+                "choices": ["Mediterranean", "Filipino", "Korean", "Chinese"]
+            },
+            {
+                "question": "What is your preferred cuisine?",
+                "choices": ["Mediterranean", "Filipino", "Korean", "Chinese"]
+            }
+        ]
+    }
+]

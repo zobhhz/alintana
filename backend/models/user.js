@@ -49,6 +49,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
+    preference: {
+        type: String,
+        default: "Any",
+    },
 });
 
 userSchema.methods.correctPassword = async function (candidatePassword, userPassword) {

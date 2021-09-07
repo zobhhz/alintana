@@ -15,6 +15,7 @@
     "license": "ISC",
     "dependencies": {
         "bcrypt": "^5.0.1",
+        "cloudinary": "^1.26.3",
         "crossenv": "^0.0.2-security",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",

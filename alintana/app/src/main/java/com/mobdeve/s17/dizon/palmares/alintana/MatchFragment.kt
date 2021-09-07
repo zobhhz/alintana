@@ -27,9 +27,9 @@ class MatchFragment : BaseProfileFragment()  {
     private lateinit var itemTouchHelper : ItemTouchHelper
     private lateinit var user : User
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -44,8 +44,6 @@ class MatchFragment : BaseProfileFragment()  {
         binding.rvPossibleMatches.layoutManager = NoScrollHorizontalLayoutManager(requireActivity().applicationContext)
         binding.rvPossibleMatches.adapter = matchAdapter
 
-
-
         itemTouchHelper = ItemTouchHelper(SwipeCallback(matchAdapter))
         itemTouchHelper.attachToRecyclerView(binding.rvPossibleMatches)
 
@@ -57,6 +55,7 @@ class MatchFragment : BaseProfileFragment()  {
         override fun canScrollHorizontally(): Boolean {
             return false
         }
+
     }
 
     override fun onDestroyView() {

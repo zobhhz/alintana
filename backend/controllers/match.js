@@ -48,6 +48,7 @@ exports.getMatched = async (req, res, next) => {
         const sender = req.params.id;
         const matchList = await Match.find({ sender });
         console.log("MATCHLIST", matchList);
+
         const matchedId = matchList.map((item) => item.receiver);
         const pairs = await Match.find({ sender: { $in: matchedId }, receiver: sender });
         const pairsId = pairs.map((item) => item.sender);

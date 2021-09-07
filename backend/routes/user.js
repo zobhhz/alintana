@@ -1,11 +1,11 @@
 const express = require("express");
-
-const { getUser, addExperience } = require("../controllers/user");
+const { getUser, addExperience, updateUser } = require("../controllers/user");
 const router = express.Router();
 
 //router.router("/").get().post();
 
-router.get("/:id", getUser);
+router.route("/:id").get(getUser);
+router.route("/").put(updateUser);
 
 router.post("/exp/add", addExperience);
 
