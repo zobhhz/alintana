@@ -15,7 +15,7 @@ const app = express();
 
 app.use(morgan("dev"));
 
-app.use(express.json({ limit: "10kb" }));
+app.use(express.json({ limit: "50mb" }));
 
 app.use("/", authRoutes);
 app.use("/api/v1/user", userRoutes);

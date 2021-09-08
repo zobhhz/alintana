@@ -254,11 +254,51 @@
                 android:inputType="none"
                 />
         </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            >
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_profile_image"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                android:src="@drawable/ic_baseline_person_24"
+                android:layout_marginRight="16dp"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_select_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload Image"
+                app:icon="@drawable/ic_baseline_camera_alt_24"
+
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save_changes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="Save Changes"
+            app:backgroundTint="@color/primary"
+            app:strokeColor="@color/primary"
+            app:cornerRadius="8dp"
+            app:strokeWidth="2dp"
+            android:padding="8dp"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password"
+            android:text="Old Password"
             android:textColor="@color/text_black"
             android:fontFamily="sans-serif-black"
             android:layout_marginBottom="2dp"
@@ -268,7 +308,37 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="Old Password"
+            app:helperTextEnabled="true"
+            app:helperText="Please type your old password"
+            app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Tooltip"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/primary"
+            android:layout_marginBottom="8dp"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_old_password"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Password"
+            android:textColor="@color/text_black"
+            android:fontFamily="sans-serif-black"
+            android:layout_marginBottom="2dp"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="New Password"
             app:helperTextEnabled="true"
             app:helperText="minimum of 8 characters"
             app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Tooltip"
@@ -289,7 +359,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Confirm Password"
+            android:text="Confirm New Password"
             android:textColor="@color/text_black"
             android:fontFamily="sans-serif-black"
             android:layout_marginBottom="2dp"
@@ -299,7 +369,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Confirm Password"
+            android:hint="Confirm New Password"
             app:helperTextEnabled="true"
             app:helperText="make sure this matches to the password above"
             app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Tooltip"
@@ -309,7 +379,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_confirmpassword"
+                android:id="@+id/et_confirm_password"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -319,13 +389,13 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_signup"
+            android:id="@+id/btn_save_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:text="Save Changes"
+            android:text="Update Password"
             app:backgroundTint="@color/primary"
             app:strokeColor="@color/primary"
             app:cornerRadius="8dp"

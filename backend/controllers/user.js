@@ -20,7 +20,7 @@ exports.getUser = async (req, res, next) => {
 exports.updateUser = async (req, res, next) => {
     try {
         const splitDate = req.body.birthdate.split("/");
-
+        console.log(req.body);
         let update = {
             username: req.body.username,
             sex: req.body.sex,
@@ -30,22 +30,17 @@ exports.updateUser = async (req, res, next) => {
             headline: req.body.headline,
             preference: req.body.preference,
         };
-        var uploadStr = "data:image/jpeg;base64," + req.body.fileStr;
-        const uploadedResponse = await cloudinary.uploader.upload(uploadStr, {
-            upload_preset: "ml_default",
-        });
+        if (req.body.fileStr !== "") {
+            var uploadStr = "data:image/jpeg;base64," + req.body.fileStr;
+            const uploadedResponse = await cloudinary.uploader.upload(uploadStr, {
+                upload_preset: "ml_default",
+            });
 
-        update.userimg = uploadedResponse.url;
-        console.log(req.body.id);
-        const user = await User.findById(req.body.id);
-        console.log(user);
-
+            update.userimg = uploadedResponse.url;
+        }
         const data = await User.findByIdAndUpdate(req.body.id, update);
 
-        res.status(200).json({
-            status: "Success",
-            data,
-        });
+        res.status(200).json(data);
     } catch (err) {
         console.log(err);
         res.status(500).json({

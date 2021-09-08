@@ -139,7 +139,7 @@ class SignUpFragment : Fragment() {
 
                         val user = User(rawData._id, rawData.username, rawData.birthdate, rawData.sex,
                             rawData.mobileNumber, rawData.location, rawData.headline, rawData.experience,
-                            rawData.createdAt)
+                            rawData.createdAt, rawData.preference)
                         val gotoProfile : Intent = Intent(activity?.baseContext, ProfileActivity::class.java)
                         gotoProfile.putExtra("user", user)
                         startActivity(gotoProfile)

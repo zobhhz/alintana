@@ -33,6 +33,8 @@ class User : Serializable{
     var createdAt = ""
     @SerializedName("userimg")
     var userImage = ""
+    @SerializedName("preference")
+    var preference = ""
 
     constructor(
         _id : String,
@@ -44,6 +46,7 @@ class User : Serializable{
         headline: String?,
         experience: Int,
         createdAt: String,
+        preference: String,
     ) {
         this._id = _id
         this.username = username
@@ -60,7 +63,9 @@ class User : Serializable{
         }
         this.experience = experience
         this.createdAt = createdAt
+        this.preference = preference
     }
+
     constructor(
         _id : String,
         username: String,
@@ -71,7 +76,8 @@ class User : Serializable{
         headline: String?,
         experience: Int,
         createdAt: String,
-        userImage: String?
+        userImage: String?,
+        preference: String
     ) {
         this._id = _id
         this.username = username
@@ -91,6 +97,7 @@ class User : Serializable{
         if (userImage != null){
             this.userImage = userImage
         }
+        this.preference = preference
     }
 
     fun getAge():Int{
