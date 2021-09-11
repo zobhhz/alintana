@@ -30,6 +30,36 @@ exports.addMatch = async (req, res, next) => {
             sender,
             receiver,
         });
+        // Increment Swipe Right by 1
+        await User.findByIdAndUpdate(sender, { $inc: { dailySwipeRight: 1, allTimeSwipeRight: 1 } });
+
+        //check if they are matched
+
+        const recordExists = await Match.findOne({ sender: receiver, receiver: sender });
+        if (recordExists) {
+            // Add Matches Statistics and Experience Points for both the sender and receiver
+            await User.findByIdAndUpdate(sender, { $inc: { dailyMatch: 1, allTimeMatch: 1, experience: 69 } });
+            await User.findByIdAndUpdate(receiver, { $inc: { dailyMatch: 1, allTimeMatch: 1, experience: 69 } });
+        }
+
+        res.status(201).json({
+            status: "Success",
+            data,
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: "Fail",
+            message: "Unkown Error",
+        });
+    }
+};
+
+exports.swipeLeft = async (req, res, next) => {
+    try {
+        const { sender, receiver } = req.body;
+
+        // Increment Swipe Right by 1
+        await User.findByIdAndUpdate(sender, { $inc: { dailySwipeLeft: 1, allTimeSwipeLeft: 1 } });
 
         res.status(201).json({
             status: "Success",

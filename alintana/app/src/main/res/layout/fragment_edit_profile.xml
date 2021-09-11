@@ -144,15 +144,13 @@
             />
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Location"
             app:helperTextEnabled="true"
             app:helperText="Uncomfortable sharing your location? You may leave this blank"
             app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Tooltip"
-            app:endIconMode="dropdown_menu"
-            app:endIconTint="@color/primary"
             app:startIconDrawable="@drawable/ic_baseline_location_on_24"
             app:startIconTint="@color/primary"
             android:layout_marginBottom="8dp"

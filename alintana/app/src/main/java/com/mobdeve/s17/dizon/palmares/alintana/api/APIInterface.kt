@@ -29,6 +29,9 @@ interface APIInterface {
     @POST("api/v1/match/add")
     fun addMatch(@Body addMatchInformation: AddMatchInformation) : Call<AddMatchResponse>
 
+    @POST("api/v1/match/ignore")
+    fun ignoreMatch(@Body addMatchInformation: AddMatchInformation) : Call<AddMatchResponse>
+
     @PUT("api/v1/user")
     fun updateUser(@Body updateUserInformation: UpdateUserInformation) : Call<User>
 

@@ -35,6 +35,25 @@ class User : Serializable{
     var userImage = ""
     @SerializedName("preference")
     var preference = ""
+    @SerializedName("dailySwipeLeft")
+    var dailySwipeLeft = 0
+    @SerializedName("dailySwipeRight")
+    var dailySwipeRight = 0
+    @SerializedName("dailyGame")
+    var dailyGame = 0
+    @SerializedName("dailyMatch")
+    var dailyMatch = 0
+    @SerializedName("allTimeSwipeLeft")
+    var allTimeSwipeLeft = 0
+    @SerializedName("allTimeSwipeRight")
+    var allTimeSwipeRight = 0
+    @SerializedName("allTimeGame")
+    var allTimeGame = 0
+    @SerializedName("allTimeMatch")
+    var allTimeMatch = 0
+
+
+
 
     constructor(
         _id : String,
@@ -76,9 +95,65 @@ class User : Serializable{
         headline: String?,
         experience: Int,
         createdAt: String,
-        userImage: String?,
-        preference: String
+        preference: String,
+        dailySwipeLeft: Int,
+        dailySwipeRight: Int,
+        dailyGame: Int,
+        dailyMatch: Int,
+        allTimeSwipeLeft: Int,
+        allTimeSwipeRight: Int,
+        allTimeGame: Int,
+        allTimeMatch: Int
+
     ) {
+        this._id = _id
+        this.username = username
+        this.birthdate = convertJSONDateToString(birthdate!!)
+        this.sex = sex
+        if (mobileNumber != null) {
+            this.mobileNumber = mobileNumber
+        }
+        if (location != null) {
+            this.location = location
+        }
+        if (headline != null) {
+            this.headline = headline
+        }
+        this.experience = experience
+        this.createdAt = createdAt
+        this.preference = preference
+        this.dailyGame = dailyGame
+        this.dailyMatch = dailyMatch
+        this.dailySwipeLeft = dailySwipeLeft
+        this.dailySwipeRight = dailySwipeRight
+        this.allTimeGame = allTimeGame
+        this.allTimeMatch = allTimeMatch
+        this.allTimeSwipeLeft = allTimeSwipeLeft
+        this.allTimeSwipeRight = allTimeSwipeRight
+
+    }
+
+    constructor(
+        _id : String,
+        username: String,
+        birthdate: String?,
+        sex: String,
+        mobileNumber: String?,
+        location: String?,
+        headline: String?,
+        experience: Int,
+        createdAt: String,
+        userImage: String?,
+        preference: String,
+        dailySwipeLeft: Int,
+        dailySwipeRight: Int,
+        dailyGame: Int,
+        dailyMatch: Int,
+        allTimeSwipeLeft: Int,
+        allTimeSwipeRight: Int,
+        allTimeGame: Int,
+        allTimeMatch: Int
+        ) {
         this._id = _id
         this.username = username
         this.birthdate = convertJSONDateToString(birthdate!!)
@@ -98,6 +173,15 @@ class User : Serializable{
             this.userImage = userImage
         }
         this.preference = preference
+        this.dailyGame = dailyGame
+        this.dailyMatch = dailyMatch
+        this.dailySwipeLeft = dailySwipeLeft
+        this.dailySwipeRight = dailySwipeRight
+        this.allTimeGame = allTimeGame
+        this.allTimeMatch = allTimeMatch
+        this.allTimeSwipeLeft = allTimeSwipeLeft
+        this.allTimeSwipeRight = allTimeSwipeRight
+
     }
 
     fun getAge():Int{

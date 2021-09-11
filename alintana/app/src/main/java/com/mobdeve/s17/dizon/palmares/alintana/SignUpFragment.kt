@@ -45,6 +45,8 @@ class SignUpFragment : Fragment() {
         val sexAdapter = ArrayAdapter(requireContext(), R.layout.item_list, items)
         (binding.actvSex)?.setAdapter(sexAdapter)
 
+        binding.actvSex.setText(sexAdapter.getItem(0), false)
+
         val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, monthOfYear)
@@ -133,13 +135,8 @@ class SignUpFragment : Fragment() {
                 override fun onResponse(p0: Call<RegisterResponse>, p1: Response<RegisterResponse>) {
 
                     if(p1.body()?.status.equals("success")){
-                        val rawData = p1.body()?.data!!
+                        val user = p1.body()?.data!!
 
-                        Log.i("USER", p1.body().toString())
-
-                        val user = User(rawData._id, rawData.username, rawData.birthdate, rawData.sex,
-                            rawData.mobileNumber, rawData.location, rawData.headline, rawData.experience,
-                            rawData.createdAt, rawData.preference)
                         val gotoProfile : Intent = Intent(activity?.baseContext, ProfileActivity::class.java)
                         gotoProfile.putExtra("user", user)
                         startActivity(gotoProfile)

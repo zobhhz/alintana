@@ -53,6 +53,38 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "Any",
     },
+    dailySwipeLeft: {
+        type: Number,
+        default: 0,
+    },
+    dailySwipeRight: {
+        type: Number,
+        default: 0,
+    },
+    dailyGame: {
+        type: Number,
+        default: 0,
+    },
+    dailyMatch: {
+        type: Number,
+        default: 0,
+    },
+    allTimeSwipeRight: {
+        type: Number,
+        default: 0,
+    },
+    allTimeSwipeLeft: {
+        type: Number,
+        default: 0,
+    },
+    allTimeGame: {
+        type: Number,
+        default: 0,
+    },
+    allTimeMatch: {
+        type: Number,
+        default: 0,
+    },
 });
 
 userSchema.methods.correctPassword = async function (candidatePassword, userPassword) {

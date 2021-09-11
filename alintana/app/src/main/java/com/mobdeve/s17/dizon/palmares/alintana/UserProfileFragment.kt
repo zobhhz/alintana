@@ -108,9 +108,33 @@ class UserProfileFragment : BaseProfileFragment() {
             binding.tvProfileLoc.visibility = View.GONE
         }
 
-        binding.tvProfileLvl.text = (user.experience/100).toString()
+
+        // DAILY TASKS
+        // 1. Get a Match 3 times
+        var denom1 = 3
+        var num1 = if (user.dailyMatch > denom1) denom1 else user.dailyMatch
+        binding.tvProfileTask1Counter.text = "${num1}/${denom1}"
+
+        // 2. Play a Game
+        var denom2 = 1
+        var num2 = if (user.dailyGame > denom2) denom2 else user.dailyGame
+        binding.tvProfileTask2Counter.text = "${num2}/${denom2}"
+
+        // 3. Swipe Left 3 Times
+        var denom3 = 3
+        var num3 = if (user.dailySwipeLeft > denom3) denom3 else user.dailySwipeLeft
+        binding.tvProfileTask3Counter.text = "${num3}/${denom3}"
+
+        var level = (user.experience/100)
+        binding.tvProfileLvl.text = level.toString()
         binding.progressBar.progress = user.experience%100
         binding.progressBar.progressTintList = ColorStateList.valueOf(resources.getColor(R.color.primary))
+
+        if(level >= 20)
+            binding.givFrameAvatar.setImageResource(R.drawable.gif_original)
+        else if(level >= 10)
+            binding.givFrameAvatar.setImageResource(R.drawable.gif_original2)
+
 
     }
 

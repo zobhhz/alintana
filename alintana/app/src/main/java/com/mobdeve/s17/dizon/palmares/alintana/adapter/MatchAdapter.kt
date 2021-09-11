@@ -17,6 +17,7 @@ import com.mobdeve.s17.dizon.palmares.alintana.model.AddMatchInformation
 import com.mobdeve.s17.dizon.palmares.alintana.model.response.AddMatchResponse
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
 import com.squareup.picasso.Picasso
+import pl.droidsonroids.gif.GifImageView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,6 +53,15 @@ class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user:
             holder.loc.visibility = View.GONE
             holder.separator2.visibility = View.GONE
         }
+
+
+        var level = (matches[position].experience/100)
+        if(level >= 20)
+            holder.frame.setImageResource(R.drawable.gif_original)
+        else if(level >= 10)
+            holder.frame.setImageResource(R.drawable.gif_original2)
+        else
+            holder.frame.setImageResource(0)
     }
 
     fun setList(matches: ArrayList<User>){
@@ -64,8 +74,9 @@ class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user:
     }
 
     fun removeMatchCard(position: Int, type: Int){
+        var client = APIClient.create()
+
         if(type == ItemTouchHelper.RIGHT){
-            var client = APIClient.create()
 
             client.addMatch(AddMatchInformation(user._id, matches[position]._id)).enqueue(object : Callback<AddMatchResponse>{
                 override fun onResponse(
@@ -75,10 +86,14 @@ class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user:
                     Toast.makeText(context, "You liked " + matches[position].username, Toast.LENGTH_LONG).show()
                     matches.removeAt(position)
                     notifyItemRemoved(position);
-                    client.addExperience(AddExperienceInformation(user._id, 50)).enqueue(object: Callback<User>{
+                    if(itemCount < 1){
+                        notif.text = "No more users for you OmO"
+                    }
+
+                    client.addExperience(AddExperienceInformation(user._id, 15)).enqueue(object: Callback<User>{
                         override fun onResponse(call: Call<User>, response: Response<User>) {
                             user.experience = response.body()!!.experience
-                            Toast.makeText(context, "You gained 50xp", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "You gained 15xp", Toast.LENGTH_LONG).show()
 
                         }
                         override fun onFailure(call: Call<User>, t: Throwable) {
@@ -86,22 +101,37 @@ class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user:
                         }
                     })
                 }
-
-
                 override fun onFailure(call: Call<AddMatchResponse>, t: Throwable) {
 
                 }
             })
         }else{
-            Toast.makeText(context, "You passed on " + matches[position].username, Toast.LENGTH_LONG).show()
-            matches.removeAt(position)
-            notifyItemRemoved(position);
-        }
+            client.ignoreMatch(AddMatchInformation(user._id, matches[position]._id)).enqueue(object : Callback<AddMatchResponse>{
+                override fun onResponse(
+                    call: Call<AddMatchResponse>,
+                    response: Response<AddMatchResponse>
+                ) {
+                    Toast.makeText(context, "You passed on " + matches[position].username, Toast.LENGTH_SHORT).show()
+                    matches.removeAt(position)
+                    notifyItemRemoved(position);
+                    if(itemCount < 1){
+                        notif.text = "No more users for you OmO"
+                    }
 
-        if(itemCount < 1){
-            notif.text = "No more users for you OmO"
+                    client.addExperience(AddExperienceInformation(user._id, 5)).enqueue(object: Callback<User>{
+                        override fun onResponse(call: Call<User>, response: Response<User>) {
+                            user.experience = response.body()!!.experience
+                            Toast.makeText(context, "You gained 5xp", Toast.LENGTH_SHORT).show()
+                        }
+                        override fun onFailure(call: Call<User>, t: Throwable) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+                }
+                override fun onFailure(call: Call<AddMatchResponse>, t: Throwable) {
+                }
+            })
         }
-
     }
 
 
@@ -115,6 +145,7 @@ class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user:
         var headline : TextView
         var separator1: TextView
         var separator2: TextView
+        var frame: GifImageView
 
         init{
             username = view.findViewById(R.id.tv_username)
@@ -126,6 +157,7 @@ class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user:
             headline = view.findViewById(R.id.tv_headline)
             separator1 = view.findViewById(R.id.tv_sep1)
             separator2 = view.findViewById(R.id.tv_sep2)
+            frame = view.findViewById(R.id.giv_frame_avatar)
         }
 
 
