@@ -1,6 +1,8 @@
 const User = require("../models/user");
 const mongoose = require("mongoose");
 const { cloudinary } = require("../utils/cloudinary");
+const AppError = require("../utils/appError");
+const bcrypt = require("bcrypt");
 
 exports.getUser = async (req, res, next) => {
     try {
@@ -20,7 +22,7 @@ exports.getUser = async (req, res, next) => {
 exports.updateUser = async (req, res, next) => {
     try {
         const splitDate = req.body.birthdate.split("/");
-        console.log(req.body);
+        //console.log(req.body);
         let update = {
             username: req.body.username,
             sex: req.body.sex,
@@ -41,6 +43,49 @@ exports.updateUser = async (req, res, next) => {
         const data = await User.findByIdAndUpdate(req.body.id, update);
 
         res.status(200).json(data);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            status: "Error",
+            message: "Error",
+        });
+    }
+};
+
+exports.updatePassword = async (req, res, next) => {
+    try {
+        const { id, oldPassword, newPassword, confirmNewPassword } = req.body;
+
+        // check if user exists && password is correct
+        const user = await User.findById(id).select("+password");
+
+        if (!user || !(await user.correctPassword(oldPassword, user.password))) {
+            res.status(401).json({
+                status: "error",
+                message: "Incorrect Password",
+                data: {},
+            });
+        }
+
+        if (newPassword !== confirmNewPassword) {
+            res.status(401).json({
+                status: "error",
+                message: "Password does not match",
+                data: {},
+            });
+        }
+
+        let update = {
+            password: await bcrypt.hash(this.password, 12),
+        };
+
+        const data = await User.findByIdAndUpdate(req.body.id, update);
+
+        res.status(201).json({
+            status: "success",
+            message: "Password successfully changed",
+            data,
+        });
     } catch (err) {
         console.log(err);
         res.status(500).json({
