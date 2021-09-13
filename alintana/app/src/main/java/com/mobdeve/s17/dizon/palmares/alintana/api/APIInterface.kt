@@ -35,5 +35,9 @@ interface APIInterface {
     @PUT("api/v1/user")
     fun updateUser(@Body updateUserInformation: UpdateUserInformation) : Call<User>
 
+    @PUT("api/v1/user/updatePassword")
+    fun updatePassword(@Body updatePasswordInformation: UpdatePasswordInformation) : Call<User>
+
+
 
 }

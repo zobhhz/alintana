@@ -20,6 +20,7 @@ import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentEditProfileBinding
 import com.mobdeve.s17.dizon.palmares.alintana.helpers.BaseProfileFragment
 import com.mobdeve.s17.dizon.palmares.alintana.model.LoginInformation
+import com.mobdeve.s17.dizon.palmares.alintana.model.UpdatePasswordInformation
 import com.mobdeve.s17.dizon.palmares.alintana.model.UpdateUserInformation
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
 import com.squareup.picasso.Picasso
@@ -114,10 +115,11 @@ class EditProfileFragment : BaseProfileFragment() {
             selectImage()
         }
 
+        var client = APIClient.create()
+
         binding.btnSaveChanges.setOnClickListener {
             lateinit var stringImg: String
             if (bitmap == null) stringImg = "" else stringImg = imgToString()
-
 
             var updateUserInformation = UpdateUserInformation(
                 ACTIVITY.user._id, binding.etUsername.text.toString(), binding.etBirthdate.text.toString(),
@@ -125,7 +127,7 @@ class EditProfileFragment : BaseProfileFragment() {
                 binding.actvLoc.editableText.toString(), binding.etHeadline.text.toString(),
                 binding.actvPref.editableText.toString(), stringImg)
 
-            APIClient.create().updateUser(updateUserInformation).enqueue(object: Callback<User>{
+            client.updateUser(updateUserInformation).enqueue(object: Callback<User>{
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     ACTIVITY.user = response.body()!!
                     ACTIVITY.loadFragment(UserProfileFragment())
@@ -136,10 +138,28 @@ class EditProfileFragment : BaseProfileFragment() {
             })
         }
 
+        binding.btnSavePw.setOnClickListener {
+
+            var updatePasswordInformation = UpdatePasswordInformation(
+                ACTIVITY.user._id,
+                binding.etOldPassword.text.toString(),
+                binding.etPassword.text.toString(),
+                binding.etConfirmPassword.text.toString()
+            )
+
+            client.updatePassword(updatePasswordInformation).enqueue(object: Callback<User>{
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    ACTIVITY.user = response.body()!!
+                    ACTIVITY.loadFragment(UserProfileFragment())
+                }
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
 
         return binding.root
     }
-
 
     fun selectImage(){
         var intent : Intent = Intent()

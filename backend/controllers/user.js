@@ -76,16 +76,12 @@ exports.updatePassword = async (req, res, next) => {
         }
 
         let update = {
-            password: await bcrypt.hash(this.password, 12),
+            password: await bcrypt.hash(newPassword, 12),
         };
 
         const data = await User.findByIdAndUpdate(req.body.id, update);
 
-        res.status(201).json({
-            status: "success",
-            message: "Password successfully changed",
-            data,
-        });
+        res.status(201).json(data);
     } catch (err) {
         console.log(err);
         res.status(500).json({
