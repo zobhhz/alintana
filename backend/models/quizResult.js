@@ -16,6 +16,19 @@ const quizResultSchema = mongoose.Schema({
     ],
 });
 
+quizResultSchema.pre(/^find/, function (next) {
+    this.populate({
+        path: "user",
+        model: "User",
+    });
+
+    this.populate({
+        path: "quiz",
+        model: "Quiz",
+    });
+    next();
+});
+
 const quizResult = mongoose.model("QuizResult", quizResultSchema);
 
 module.exports = quizResult;

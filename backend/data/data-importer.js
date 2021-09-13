@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const path = require("path");
 const User = require("./../models/user");
 const Matches = require("./../models/match");
+const Quiz =  require("./../models/quiz");
 
 dotenv.config({ path: path.resolve(__dirname, "../config.env") });
 
@@ -36,11 +37,13 @@ if (process.env.MONGO_ENV === "local") {
 //READ JSON File
 
 const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, "utf-8"));
+const quiz = JSON.parse(fs.readFileSync(`${__dirname}/quiz.json`, "utf-8"));
 
 // IMPORT DATA INTO DB
 const importData = async () => {
     try {
         await User.create(users, { validateBeforeSave: false });
+        await Quiz.create(quiz);
         console.log("Data successfully loaded!");
     } catch (err) {
         console.log(err);
@@ -54,6 +57,7 @@ const deleteData = async () => {
     try {
         await User.deleteMany();
         await Matches.deleteMany();
+        await Quiz.deleteMany();
         console.log("Data successfully deleted");
     } catch (err) {
         console.log(err);

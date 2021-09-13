@@ -11,8 +11,91 @@
                 "choices": ["Mediterranean", "Filipino", "Korean", "Chinese"]
             },
             {
-                "question": "What is your preferred cuisine?",
-                "choices": ["Mediterranean", "Filipino", "Korean", "Chinese"]
+                "question": "What would you eat for breakfast?",
+                "choices": ["Pancakes", "Tapsilog", "Cereal", "Eggs and Bacon"]
+            },
+            {
+                "question": "What would you eat for lunch?",
+                "choices": ["Ramen", "Salad", "Burger and Fries", "Mac n' Cheese"]
+            },
+            {
+                "question": "What would you eat for dinner?",
+                "choices": ["Pizza", "Sushi", "Pasta", "Curry and Rice"]
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "questions": [
+            {
+                "question": "What water sport do you like?",
+                "choices": ["Swimming", "Diving", "Surfing", "Dragon boat racing"]
+            },
+            {
+                "question": "What racket sport do you like?",
+                "choices": ["Table Tennis", "Tennis", "Badmintion", "Cricket"]
+            },
+            {
+                "question": "What team sport do you like?",
+                "choices": ["Soccer", "Basketball", "Volleyball", "Baseball"]
+            },
+            {
+                "question": "What combat sport do you like?",
+                "choices": ["Boxing", "Muay Thai", "Taekwondo", "Wrestling"]
+            },
+            {
+                "question": "What extreme sport do you like?",
+                "choices": ["Formula One", "MotoGP", "Skateboarding", "BMX Racing"]
+            }
+        ]
+    },
+    {
+        "category": "Pop Culture",
+        "questions": [
+            {
+                "question": "Who is your favorite rapper?",
+                "choices": ["Kendrick Lamar", "Megan Thee Stallion", "Drake", "Nicki Minaj"]
+            },
+            {
+                "question": "Which is your favorite KPOP group?",
+                "choices": ["BTS", "BLACKPINK", "EXO", "TWICE"]
+            },
+            {
+                "question": "Who is your favorite female pop singer?",
+                "choices": ["Lorde", "Doja Cat", "Dua Lipa", "Ariana Grande"]
+            },
+            {
+                "question": "Who is your favorite male pop singer?",
+                "choices": ["Justin Bieber", "Harry Styles", "Lauv", "Bazzi"]
+            },
+            {
+                "question": "Which is your favorite band?",
+                "choices": ["The 1975", "Tame Impala", "The Strokes", "Coldplay"]
+            }
+        ]
+    },
+    {
+        "category": "Games",
+        "questions": [
+            {
+                "question": "What is your preferred MOBA game?",
+                "choices": ["DOTA 2", "League of Legends", "Smite", "Mobile Legends"]
+            },
+            {
+                "question": "What is your preferred battle royale game?",
+                "choices": ["Fortnite", "Apex Legends", "Call of Duty: Warzone", "Fall Guys: Ultimate Knockout"]
+            },
+            {
+                "question": "What is your preferred story game?",
+                "choices": ["Life is Strange", "Detroit: Become Human", "God of War", "Persona 5 Royal"]
+            },
+            {
+                "question": "What is your preferred FPS game?",
+                "choices": ["Tom Clancy's Rainbow Six Siege", "Counter-Strike: Global Offensive", "Valorant", "Team Fortress 2"]
+            },
+            {
+                "question": "What is your preferred action RPG game?",
+                "choices": ["Cyberpunk 2077", "Genshin Impact", "Final Fantasy XV", "The Legend of Zelda: Breath of the Wild"]
             }
         ]
     }
