@@ -62,21 +62,29 @@ class UserProfileFragment : BaseProfileFragment() {
         _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
         bindUserData()
         binding.btnProfileMatch.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
+
             (requireActivity() as ProfileActivity).loadFragment(MatchFragment())
             ACTIVITY.binding.navView.setCheckedItem(R.id.menu_find_match)
         }
 
         binding.btnProfileEdit.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
+
             (requireActivity() as ProfileActivity).loadFragment(EditProfileFragment())
             ACTIVITY.binding.navView.setCheckedItem(R.id.menu_editprofile)
         }
 
         binding.fabProfileMatches.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
+
             (requireActivity() as ProfileActivity).loadFragment(MatchListFragment())
             ACTIVITY.binding.navView.setCheckedItem(R.id.menu_my_matches)
         }
 
         binding.fabProfileGames.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
+
             (requireActivity() as ProfileActivity).loadFragment(GamesListFragment())
             ACTIVITY.binding.navView.setCheckedItem(R.id.menu_game)
         }

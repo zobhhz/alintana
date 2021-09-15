@@ -10,17 +10,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.ActivityProfileBinding
+import com.mobdeve.s17.dizon.palmares.alintana.helpers.SoundEffects
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
+import com.mobdeve.s17.dizon.palmares.alintana.services.MediaPlayerService
 
 class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     public lateinit var binding : ActivityProfileBinding
     lateinit var user : User
+    lateinit var sfx : SoundEffects
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
 
         user = intent.getSerializableExtra("user") as User
+
+        sfx = SoundEffects(applicationContext)
 
         loadFragment(UserProfileFragment())
 
@@ -54,6 +59,7 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
     // navigation bar functions
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        sfx.clickSoundEffect()
         var id : Int = item.itemId
         when (id){
             R.id.menu_myprofile -> loadFragment(UserProfileFragment())
@@ -64,6 +70,8 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             R.id.menu_logout -> {
                 val gotoMainActivity : Intent = Intent(baseContext, MainActivity::class.java)
                 startActivity(gotoMainActivity)
+                stopService( Intent(applicationContext, MediaPlayerService::class.java ))
+
                 finish()
             }
             else -> loadFragment(UserProfileFragment())
@@ -80,6 +88,12 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         transaction.replace(R.id.container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopService( Intent(applicationContext, MediaPlayerService::class.java ))
+
     }
 
 }

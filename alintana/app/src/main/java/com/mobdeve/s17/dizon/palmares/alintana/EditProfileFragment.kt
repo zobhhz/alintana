@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentEditProfileBinding
@@ -93,9 +94,6 @@ class EditProfileFragment : BaseProfileFragment() {
         binding.etBirthdate.setText(user.birthdate)
         binding.actvSex.setText(sexAdapter.getItem(sexAdapter.getPosition(user.sex)), false)
 
-
-
-
         if(sexAdapter.getPosition(user.preference) == -1)
             binding.actvPref.setText(prefAdapter.getItem(0), false)
         else
@@ -112,12 +110,14 @@ class EditProfileFragment : BaseProfileFragment() {
         }
 
         binding.btnSelectImage.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
             selectImage()
         }
 
         var client = APIClient.create()
 
         binding.btnSaveChanges.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
             lateinit var stringImg: String
             if (bitmap == null) stringImg = "" else stringImg = imgToString()
 
@@ -131,6 +131,7 @@ class EditProfileFragment : BaseProfileFragment() {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     ACTIVITY.user = response.body()!!
                     ACTIVITY.loadFragment(UserProfileFragment())
+                   ACTIVITY.binding.navView.menu.getItem(0).setChecked(true)
                 }
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     TODO("Not yet implemented")
@@ -139,6 +140,28 @@ class EditProfileFragment : BaseProfileFragment() {
         }
 
         binding.btnSavePw.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
+            if(binding.etOldPassword.editableText.toString().isEmpty()){
+                binding.etOldPassword.error = "Old Password required"
+                binding.etUsername.requestFocus()
+                return@setOnClickListener
+            }
+            if(binding.etPassword.editableText.toString().isEmpty()){
+                binding.etPassword.error = "New Password required"
+                binding.etPassword.requestFocus()
+                return@setOnClickListener
+            }
+            if(binding.etConfirmPassword.editableText.toString().isEmpty()){
+                binding.etConfirmPassword.error = "Confirm New Password required"
+                binding.etConfirmPassword.requestFocus()
+                return@setOnClickListener
+            }
+
+            if(binding.etConfirmPassword.editableText.toString() !== (binding.etPassword.editableText.toString())){
+                binding.etConfirmPassword.error = "Password does not match"
+                binding.etConfirmPassword.requestFocus()
+                return@setOnClickListener
+            }
 
             var updatePasswordInformation = UpdatePasswordInformation(
                 ACTIVITY.user._id,
@@ -151,9 +174,10 @@ class EditProfileFragment : BaseProfileFragment() {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     ACTIVITY.user = response.body()!!
                     ACTIVITY.loadFragment(UserProfileFragment())
+                    ACTIVITY.binding.navView.menu.getItem(0).setChecked(true)
                 }
                 override fun onFailure(call: Call<User>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(requireActivity().applicationContext,"Error changing password. Make sure the inputs are correct", Toast.LENGTH_LONG).show()
                 }
             })
         }

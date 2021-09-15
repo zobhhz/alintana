@@ -79,6 +79,7 @@ class SignUpFragment : Fragment() {
                 }
             }
         }
+
 //
 //        binding.etBirthdate.setOnClickListener {
 //            Log.i("SET", "CHECK")
@@ -95,7 +96,6 @@ class SignUpFragment : Fragment() {
 //        }
 
         binding.btnSignup.setOnClickListener{
-
             val username = binding.etUsername.text.toString().trim()
             val password = binding.etPassword.text.toString()
             val confirmPassword = binding.etConfirmpassword.text.toString()
@@ -103,7 +103,6 @@ class SignUpFragment : Fragment() {
             val location = binding.actvLoc.text.toString()
             val headline = binding.etHeadline.text.toString()
             val mobilenumber = binding.actvMobilenumber.text.toString()
-
             val birthdate = binding.etBirthdate.text.toString()
 
             if(username.isEmpty()){
@@ -123,7 +122,7 @@ class SignUpFragment : Fragment() {
                 return@setOnClickListener
             }
             if(birthdate.isEmpty()){
-                binding.etBirthdate.error = "Password required"
+                binding.etBirthdate.error = "Birthday required"
                 binding.etBirthdate.requestFocus()
                 return@setOnClickListener
             }

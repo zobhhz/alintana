@@ -18,12 +18,14 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.ActivityMainBinding
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentWelcomeBinding
+import com.mobdeve.s17.dizon.palmares.alintana.helpers.SoundEffects
 import com.mobdeve.s17.dizon.palmares.alintana.services.MediaPlayerService
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
     private lateinit var welcomeBinding: FragmentWelcomeBinding
+    lateinit var sfx : SoundEffects
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,20 +36,18 @@ class MainActivity : AppCompatActivity() {
         loadFragment(WelcomeFragment())
         setContentView(binding.root)
 
-        var mMediaPlayer = MediaPlayer.create(this, R.raw.bgmusic)
-        mMediaPlayer?.isLooping = true
-        mMediaPlayer?.setVolume(70f, 70f)
-        mMediaPlayer?.start()
+        sfx = SoundEffects(applicationContext)
 
-        startService( Intent(applicationContext, MediaPlayerService::class.java ))
 
         binding.tvWelcome.setOnClickListener{
+            sfx.clickSoundEffect()
             binding.tvWelcome.background = resources.getDrawable(R.drawable.textlines, theme)
             binding.tvLogin.setBackgroundResource(0)
             binding.tvSignUp.setBackgroundResource(0)
             loadFragment(WelcomeFragment())
         }
         binding.tvLogin.setOnClickListener{
+            sfx.clickSoundEffect()
             binding.tvLogin.background = resources.getDrawable(R.drawable.textlines, theme)
             binding.tvSignUp.setBackgroundResource(0)
             binding.tvWelcome.setBackgroundResource(0)
@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.tvSignUp.setOnClickListener{
+            sfx.clickSoundEffect()
             binding.tvSignUp.background = resources.getDrawable(R.drawable.textlines, theme)
             binding.tvLogin.setBackgroundResource(0)
             binding.tvWelcome.setBackgroundResource(0)
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 //        var welcomeLoginBtn = this.findViewById(R.id.btn_welcome_login) as Button
 
         welcomeBinding.btnWelcomeSignup.setOnClickListener{
-            Log.v("TEST", "TEST")
+            sfx.clickSoundEffect()
             binding.tvSignUp.background = resources.getDrawable(R.drawable.textlines, theme)
             binding.tvLogin.setBackgroundResource(0)
             binding.tvWelcome.setBackgroundResource(0)
@@ -73,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         welcomeBinding.btnWelcomeLogin.setOnClickListener{
-            Log.v("TEST", "TEST")
+            sfx.clickSoundEffect()
             binding.tvLogin.background = resources.getDrawable(R.drawable.textlines, theme)
             binding.tvSignUp.setBackgroundResource(0)
             binding.tvWelcome.setBackgroundResource(0)

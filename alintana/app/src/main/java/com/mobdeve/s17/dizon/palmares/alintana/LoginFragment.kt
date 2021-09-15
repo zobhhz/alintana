@@ -12,6 +12,7 @@ import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentLoginBinding
 import com.mobdeve.s17.dizon.palmares.alintana.model.LoginInformation
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
 import com.mobdeve.s17.dizon.palmares.alintana.model.response.LoginResponse
+import com.mobdeve.s17.dizon.palmares.alintana.services.MediaPlayerService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -86,6 +87,8 @@ class LoginFragment : Fragment() {
                         gotoProfile.putExtra("user", user)
 //                        gotoEditProfile.putExtra("user", user)
                         startActivity(gotoProfile)
+                        activity?.startService( Intent(requireActivity().applicationContext, MediaPlayerService::class.java ))
+
                         activity!!.finish()
 
                     }else{

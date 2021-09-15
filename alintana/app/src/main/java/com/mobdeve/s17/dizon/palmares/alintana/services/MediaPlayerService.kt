@@ -23,7 +23,7 @@ class MediaPlayerService: Service() {
         Log.d("TESTING","MUSICCCCCCCCC")
         mMediaPlayer = MediaPlayer.create(this, R.raw.bgmusic)
         mMediaPlayer?.isLooping = true
-        mMediaPlayer?.setVolume(70f, 70f)
+        mMediaPlayer?.setVolume(40f, 40f)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

@@ -35,6 +35,7 @@ class GamesListFragment : BaseProfileFragment(){
         _binding = FragmentGamesListBinding.inflate(inflater, container, false)
 
         binding.btnPlay.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
             val gotoGame = Intent(activity?.baseContext, GameActivity::class.java)
             gotoGame.putExtra("user", user)
             startActivity(gotoGame)

@@ -1,5 +1,6 @@
 package com.mobdeve.s17.dizon.palmares.alintana
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.ActivityGameBinding
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
+import com.mobdeve.s17.dizon.palmares.alintana.services.MediaPlayerService
 
 class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
@@ -51,5 +53,9 @@ class GameActivity : AppCompatActivity() {
         transaction.replace(R.id.container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

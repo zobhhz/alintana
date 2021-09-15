@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.mobdeve.s17.dizon.palmares.alintana.R
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
+import com.mobdeve.s17.dizon.palmares.alintana.helpers.SoundEffects
 import com.mobdeve.s17.dizon.palmares.alintana.model.AddExperienceInformation
 import com.mobdeve.s17.dizon.palmares.alintana.model.AddMatchInformation
 import com.mobdeve.s17.dizon.palmares.alintana.model.response.AddMatchResponse
@@ -23,12 +24,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user: User, var notif: TextView): RecyclerView.Adapter<MatchAdapter.MatchViewHolder>() {
+    var sfx = SoundEffects(context)
 
     override fun getItemCount(): Int{
         return matches.size
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchAdapter.MatchViewHolder{
-
        return MatchViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.match_card,parent, false))
     }
 
@@ -75,6 +76,9 @@ class MatchAdapter(var context: Context, var matches: ArrayList<User>, var user:
 
     fun removeMatchCard(position: Int, type: Int){
         var client = APIClient.create()
+
+        sfx.clickSwishEffect()
+
 
         if(type == ItemTouchHelper.RIGHT){
 
