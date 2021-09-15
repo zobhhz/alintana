@@ -1,9 +1,8 @@
 const express = require("express");
-const { getQuiz, addQuizResult } = require("../controllers/quiz");
-//TODO: Add from controller (require...)
+const { getQuiz, addQuizResult, getLeaderboards } = require("../controllers/quiz");
 const router = express.Router();
 
-//TODO: Add from controller (router.get stuff)
 router.route("/:id").get(getQuiz);
 router.route("/").post(addQuizResult);
+router.route("/getLeaderboard/:user/:quiz").get(getLeaderboards);
 module.exports = router;

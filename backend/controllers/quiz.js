@@ -1,6 +1,8 @@
 const Quiz = require("../models/quiz");
 const Question = require("../models/question");
 const QuizResult = require("../models/quizResult");
+const Match = require("../models/match");
+const User = require("../models/user");
 const mongoose = require("mongoose");
 
 exports.getQuiz = async (req, res, next) => {
@@ -69,9 +71,50 @@ exports.getLeaderboards = async (req, res, next) => {
          */
 
         const{user,quiz} = req.params;
-        
+
         // find quiz result from 
         const myResult = await QuizResult.findOne({user,quiz});
+
+        // find matches
+        const matchList = await Match.find({sender: user});
+        // console.log("getLeaderboard: Matchlist", matchList);
+
+        const matchedId = matchList.map((item) => item.receiver);
+        const pairs = await Match.find({ sender: { $in: matchedId }, receiver: user });
+        const pairsId = pairs.map((item) => item.sender);
+        const data = await User.find({ _id: { $in: [...pairsId] } });
+        // console.log("getLeaderboard: data", data);
+        
+        // get result of matches
+        let quizMatches= [];
+        for(let match of data) {
+            let user = match._id;
+            let otherResult = await QuizResult.findOne({user,quiz});
+
+            // if not null, compute and push into array
+            if(otherResult){
+                // for counting of similar answers
+                let count = 0;
+
+                // computing
+                for(let i = 0; i < 5; i++){
+                    if(myResult.answers[i] === otherResult.answers[i])
+                        count++;
+                }
+
+                let percent = count/5*100;
+                let score = {user: otherResult.user.username, percent};
+
+                quizMatches.push(score);
+            }
+        }
+
+        console.log("getLeaderboard: quizMatches", quizMatches);
+
+        res.status(200).json({
+            status: "Success",
+            quizMatches, 
+        });
 
     } catch (err) {
         console.log(err);
