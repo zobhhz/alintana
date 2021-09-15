@@ -1,6 +1,11 @@
 package com.mobdeve.s17.dizon.palmares.alintana
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.drawable.Drawable
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,11 +18,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.ActivityMainBinding
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentWelcomeBinding
+import com.mobdeve.s17.dizon.palmares.alintana.services.MediaPlayerService
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
     private lateinit var welcomeBinding: FragmentWelcomeBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +32,14 @@ class MainActivity : AppCompatActivity() {
         welcomeBinding = FragmentWelcomeBinding.inflate(layoutInflater)
 
         loadFragment(WelcomeFragment())
-
-
         setContentView(binding.root)
+
+        var mMediaPlayer = MediaPlayer.create(this, R.raw.bgmusic)
+        mMediaPlayer?.isLooping = true
+        mMediaPlayer?.setVolume(70f, 70f)
+        mMediaPlayer?.start()
+
+        startService( Intent(applicationContext, MediaPlayerService::class.java ))
 
         binding.tvWelcome.setOnClickListener{
             binding.tvWelcome.background = resources.getDrawable(R.drawable.textlines, theme)
