@@ -41,7 +41,9 @@ interface APIInterface {
     @GET("api/v1/quiz/{category}")
     fun getQuiz(@Path("category") category: String) : Call<Quiz>
 
+    @POST("api/v1/quiz/")
+    fun addQuizResult(@Body addQuizResultInformation: AddQuizResultInformation) : Call<QuizResult>
 
-
-
+    @GET("api/v1/quiz/{user}/{quiz}")
+    fun getQuiz(@Path("user") user: String, @Path("quiz") quiz: String) : Call<Leaderboard>
 }

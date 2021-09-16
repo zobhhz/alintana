@@ -91,11 +91,11 @@
             },
             {
                 "question": "What is your preferred FPS game?",
-                "choices": ["Tom Clancy's Rainbow Six Siege", "Counter-Strike: Global Offensive", "Valorant", "Team Fortress 2"]
+                "choices": ["Rainbow Six Siege", "CS:GO", "Valorant", "Team Fortress 2"]
             },
             {
                 "question": "What is your preferred action RPG game?",
-                "choices": ["Cyberpunk 2077", "Genshin Impact", "Final Fantasy XV", "The Legend of Zelda: Breath of the Wild"]
+                "choices": ["Cyberpunk 2077", "Genshin Impact", "Final Fantasy XV", "Zelda: Breath of the Wild"]
             }
         ]
     }

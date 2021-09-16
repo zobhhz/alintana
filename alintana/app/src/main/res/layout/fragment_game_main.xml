@@ -116,40 +116,73 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:columnCount="2">
+        >
 
-        <include
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_leaderboard1"
-            layout="@layout/game_button"
+            app:cornerRadius="8dp"
             android:layout_width="150dp"
             android:layout_height="100dp"
+            android:layout_marginEnd="10dp"
             android:layout_row="0"
+            android:layout_rowWeight="1"
             android:layout_column="0"
-            android:layout_marginEnd="10dp" />
-
-        <include
-            android:id="@+id/btn_leaderboard2"
-            layout="@layout/game_button"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:layout_row="0"
-            android:layout_column="1"/>
-
-        <include
-            android:id="@+id/btn_leaderboard3"
-            layout="@layout/game_button"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:layout_row="1"
-            android:layout_column="0"
+            app:backgroundTint="@color/white"
+            app:strokeColor="@color/primary"
+            android:textColor="@color/primary"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:text="Food"
             />
-
-        <include
-            android:id="@+id/btn_leaderboard4"
-            layout="@layout/game_button"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_leaderboard2"
+            app:cornerRadius="8dp"
             android:layout_width="150dp"
             android:layout_height="100dp"
+            android:layout_marginEnd="10dp"
+            android:layout_row="0"
+            android:layout_rowWeight="1"
+            android:layout_column="1"
+            app:backgroundTint="@color/white"
+            app:strokeColor="@color/primary"
+            android:textColor="@color/primary"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:text="Sports"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_leaderboard3"
+            app:cornerRadius="8dp"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_row="1"
-            android:layout_column="1"/>
+            android:layout_rowWeight="1"
+            android:layout_column="0"
+            app:backgroundTint="@color/white"
+            app:strokeColor="@color/primary"
+            android:textColor="@color/primary"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:text="Pop Culture"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_leaderboard4"
+            app:cornerRadius="8dp"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_row="1"
+            android:layout_rowWeight="1"
+            android:layout_column="1"
+            app:backgroundTint="@color/white"
+            app:strokeColor="@color/primary"
+            android:textColor="@color/primary"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:text="Games"
+            />
     </GridLayout>
 </LinearLayout>

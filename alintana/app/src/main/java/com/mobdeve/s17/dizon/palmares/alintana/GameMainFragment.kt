@@ -31,7 +31,6 @@ class GameMainFragment : BaseGameFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         client = APIClient.create()
-
     }
 
     override fun onCreateView(
@@ -44,21 +43,55 @@ class GameMainFragment : BaseGameFragment() {
 
         ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        // quizzes
         binding.btnGameCategory1.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
             getGameByCategory("Food")
-//
-            Log.v("GameMainFragment","Button pressed")
+            Log.v("GameMainFragment","Food quiz pressed")
         }
 
-        binding.btnLeaderboard1.root.text = "Food"
-        binding.btnLeaderboard2.root.text = "Sports"
-        binding.btnLeaderboard3.root.text = "Pop Culture"
-        binding.btnLeaderboard4.root.text = "Games"
+        binding.btnGameCategory2.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
+            getGameByCategory("Sports")
+            Log.v("GameMainFragment","Sports quiz pressed")
+        }
+
+        binding.btnGameCategory3.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
+            getGameByCategory("Pop Culture")
+            Log.v("GameMainFragment","Pop Culture quiz pressed")
+        }
+
+        binding.btnGameCategory4.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
+            getGameByCategory("Games")
+            Log.v("GameMainFragment","Games quiz pressed")
+        }
+
+        // leaderboards
+        binding.btnLeaderboard1.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
+            Log.v("GameMainFragment","Food Leaderboard pressed")
+        }
+
+        binding.btnLeaderboard2.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
+            Log.v("GameMainFragment","Sports Leaderboard pressed")
+        }
+
+        binding.btnLeaderboard3.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
+            Log.v("GameMainFragment","Pop Culture Leaderboard pressed")
+        }
+
+        binding.btnLeaderboard4.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
+            Log.v("GameMainFragment","Games Leaderboard pressed")
+        }
 
         // Inflate the layout for this fragment
         return binding.root
     }
-
 
     private fun getGameByCategory(categ: String){
         client.getQuiz(categ).enqueue(object: Callback<Quiz>{
@@ -71,8 +104,10 @@ class GameMainFragment : BaseGameFragment() {
             override fun onFailure(call: Call<Quiz>, t: Throwable) {
                 TODO("Not yet implemented")
             }
-
         })
+    }
 
+    private fun getLeaderboardByCategory(categ: String){
+        //TODO
     }
 }

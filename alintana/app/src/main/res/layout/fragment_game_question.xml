@@ -27,6 +27,7 @@
             >
 
             <ImageView
+                android:id="@+id/indicator1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -35,15 +36,7 @@
                 />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/rounded_rectangle"
-                app:tint="@color/secondary"
-                />
-
-            <ImageView
+                android:id="@+id/indicator2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -52,6 +45,7 @@
                 />
 
             <ImageView
+                android:id="@+id/indicator3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -60,6 +54,16 @@
                 />
 
             <ImageView
+                android:id="@+id/indicator4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/rounded_rectangle"
+                />
+
+            <ImageView
+                android:id="@+id/indicator5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
