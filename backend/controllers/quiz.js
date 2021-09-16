@@ -57,36 +57,19 @@ exports.addQuizResult = async (req, res, next) => {
 
 exports.getLeaderboards = async (req, res, next) => {
     try {
-        /**
-         * user muna: check if may result siya sa category?
-         * check if yung mga matches niya have also taken the quiz in the same category
-         * if there are matches na nakapag answer na:
-         *  compare user and each match's answers and compute the percentage of each
-         *  sort by highest and return top 5 only
-         * else: prompt nlng sa android ng message if array size is 0
-         *
-         * if wala si user result sa category:
-         *  prompt nlng rin sa android ng message if array size is 0
-         *
-         * return category and array of top 5 (u/n and %)
-         */
-
         const { user, quiz } = req.params;
 
-        // find quiz result from
+        // find quiz result 
         const myResult = await QuizResult.findOne({ user, quiz });
 
         // find matches
         const matchList = await Match.find({ sender: user });
-        // console.log("getLeaderboard: Matchlist", matchList);
-
         const matchedId = matchList.map((item) => item.receiver);
         const pairs = await Match.find({ sender: { $in: matchedId }, receiver: user });
         const pairsId = pairs.map((item) => item.sender);
         const data = await User.find({ _id: { $in: [...pairsId] } });
-        // console.log("getLeaderboard: data", data);
 
-        // get result of matches
+        // get quiz result of matches
         let quizMatches = [];
         for (let match of data) {
             let user = match._id;
@@ -109,7 +92,14 @@ exports.getLeaderboards = async (req, res, next) => {
             }
         }
 
+        // sorting in descending order
+        quizMatches.sort((a,b) => (a.percent < b.percent) ? 1 : (a.percent === b.percent) ? ((a.user > b.user) ? 1 : -1) : -1);
+
+        // getting top 5
+        quizMatches = quizMatches.slice(0,5);
+
         console.log("getLeaderboard: quizMatches", quizMatches);
+        console.log("getLeaderboard: quizMatches length", quizMatches.length);
 
         res.status(200).json({
             status: "Success",
