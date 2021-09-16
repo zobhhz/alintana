@@ -4,23 +4,27 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
+import android.graphics.drawable.AnimatedImageDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Base64
-import androidx.fragment.app.Fragment
+import android.util.Base64OutputStream
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.graphics.drawable.toBitmap
+import androidx.fragment.app.Fragment
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentEditProfileBinding
 import com.mobdeve.s17.dizon.palmares.alintana.helpers.BaseProfileFragment
-import com.mobdeve.s17.dizon.palmares.alintana.model.LoginInformation
 import com.mobdeve.s17.dizon.palmares.alintana.model.UpdatePasswordInformation
 import com.mobdeve.s17.dizon.palmares.alintana.model.UpdateUserInformation
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
@@ -29,6 +33,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.io.File
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,20 +49,39 @@ class EditProfileFragment : BaseProfileFragment() {
     private val binding get() = _binding!!
     private lateinit var user : User
     private var bitmap : Bitmap? = null
+    private var drawable : Drawable? = null
+    private var format : String = ""
+    private var imageFile : File? = null
 
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             // There are no request codes
             val data: Intent? = result.data
             var path: Uri = data!!.data!!
+
+            Log.d("VIDEO: ", path.toString())
+
+            var pathCut = path.toString().split(".")
+            format = pathCut[pathCut.size - 1]
+
             try{
                 if(Build.VERSION.SDK_INT < 28) {
                     bitmap = MediaStore.Images.Media.getBitmap(requireActivity().applicationContext.contentResolver, path)
                     binding.ivProfileImage.setImageBitmap(bitmap)
                 }else{
                     val source = ImageDecoder.createSource(requireActivity().applicationContext.contentResolver, path)
-                    bitmap  = ImageDecoder.decodeBitmap(source)
                     binding.ivProfileImage.setImageBitmap(bitmap)
+                    bitmap = ImageDecoder.decodeBitmap(source)
+
+                    if(format == "gif"){
+                        drawable = ImageDecoder.decodeDrawable(source)
+                        if (drawable is AnimatedImageDrawable) {
+                            (drawable as AnimatedImageDrawable).start()
+                        }
+                        binding.ivProfileImage.setImageDrawable(drawable)
+                    }else{
+                        binding.ivProfileImage.setImageBitmap(bitmap)
+                    }
                 }
             }catch (e: Exception){
                 e.printStackTrace()
@@ -65,7 +90,6 @@ class EditProfileFragment : BaseProfileFragment() {
 
         }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,7 +143,14 @@ class EditProfileFragment : BaseProfileFragment() {
         binding.btnSaveChanges.setOnClickListener {
             ACTIVITY.sfx.clickSoundEffect()
             lateinit var stringImg: String
-            if (bitmap == null) stringImg = "" else stringImg = imgToString()
+            if (bitmap == null){
+                stringImg = ""
+            } else {
+                if(format == "gif")
+                    stringImg = "<GIF>" + imgToString()
+                else
+                    stringImg = "<NOTGIF>" + imgToString()
+            }
 
             var updateUserInformation = UpdateUserInformation(
                 ACTIVITY.user._id, binding.etUsername.text.toString(), binding.etBirthdate.text.toString(),
@@ -193,11 +224,24 @@ class EditProfileFragment : BaseProfileFragment() {
     }
 
     fun imgToString(): String{
+        lateinit var imgByte : ByteArray
         var byteArrayOutputStream : ByteArrayOutputStream = ByteArrayOutputStream()
-        bitmap!!.compress(Bitmap.CompressFormat.PNG,100, byteArrayOutputStream)
-        var imgByte = byteArrayOutputStream.toByteArray()
-        return Base64.encodeToString(imgByte, Base64.DEFAULT)
+            bitmap!!.compress(Bitmap.CompressFormat.PNG,100, byteArrayOutputStream)
+        imgByte = byteArrayOutputStream.toByteArray()
+
+        return Base64.encodeToString(imgByte, Base64.NO_WRAP)
     }
+
+//    fun convertImageFileToBase64(imageFile: File?): String {
+//        return ByteArrayOutputStream().use { outputStream ->
+//            Base64OutputStream(outputStream, Base64.DEFAULT).use { base64FilterStream ->
+//                imageFile!!.inputStream().use { inputStream ->
+//                    inputStream.copyTo(base64FilterStream)
+//                }
+//            }
+//            return@use outputStream.toString()
+//        }
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
