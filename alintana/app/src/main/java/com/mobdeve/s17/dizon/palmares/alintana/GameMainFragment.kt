@@ -6,9 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
+import com.mobdeve.s17.dizon.palmares.alintana.api.APIInterface
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentGameMainBinding
 import com.mobdeve.s17.dizon.palmares.alintana.helpers.BaseGameFragment
+import com.mobdeve.s17.dizon.palmares.alintana.model.Quiz
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
  * A simple [Fragment] subclass.
@@ -19,9 +26,12 @@ class GameMainFragment : BaseGameFragment() {
     private var _binding: FragmentGameMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var user : User
+    private lateinit var client : APIInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        client = APIClient.create()
+
     }
 
     override fun onCreateView(
@@ -35,7 +45,8 @@ class GameMainFragment : BaseGameFragment() {
         ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.btnGameCategory1.setOnClickListener {
-            (requireActivity() as GameActivity).loadFragment(GameQuestionFragment())
+            getGameByCategory("Food")
+//            (requireActivity() as GameActivity).loadFragment(GameQuestionFragment())
             Log.v("GameMainFragment","Button pressed")
         }
 
@@ -46,5 +57,23 @@ class GameMainFragment : BaseGameFragment() {
 
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+
+    private fun getGameByCategory(categ: String){
+        client.getQuiz(categ).enqueue(object: Callback<Quiz>{
+            override fun onResponse(call: Call<Quiz>, response: Response<Quiz>) {
+                var quiz = response.body()
+                Log.d("Quiz:", quiz.toString())
+                Toast.makeText(requireActivity().applicationContext, quiz!!.category, Toast.LENGTH_LONG)
+
+            }
+
+            override fun onFailure(call: Call<Quiz>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
     }
 }

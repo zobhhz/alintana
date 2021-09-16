@@ -38,6 +38,10 @@ interface APIInterface {
     @PUT("api/v1/user/updatePassword")
     fun updatePassword(@Body updatePasswordInformation: UpdatePasswordInformation) : Call<User>
 
+    @GET("api/v1/quiz/{category}")
+    fun getQuiz(@Path("category") category: String) : Call<Quiz>
+
+
 
 
 }
