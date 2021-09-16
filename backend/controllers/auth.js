@@ -44,7 +44,7 @@ exports.login = catchAsync(async (req, res, next) => {
         user.password = undefined;
         res.status(200).json({
             status: "success",
-            message: "You have successfully congratulations!",
+            message: "You have successfully logged in",
             data: user,
         });
     }

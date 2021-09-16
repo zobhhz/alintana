@@ -77,7 +77,7 @@ exports.swipeLeft = async (req, res, next) => {
   try {
     const { sender, receiver } = req.body;
 
-    // Increment Swipe Right by 1
+    // Increment Swipe Left by 1
     await User.findByIdAndUpdate(sender, {
       $inc: { dailySwipeLeft: 1, allTimeSwipeLeft: 1 },
     });

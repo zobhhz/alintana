@@ -134,8 +134,8 @@ class SignUpFragment : Fragment() {
                 override fun onResponse(p0: Call<RegisterResponse>, p1: Response<RegisterResponse>) {
 
                     if(p1.body()?.status.equals("success")){
-                        val user = p1.body()?.data!!
-
+                        val user = p1.body()?.data?.user!!
+                        Log.d("ewan",user.toString())
                         val gotoProfile : Intent = Intent(activity?.baseContext, ProfileActivity::class.java)
                         gotoProfile.putExtra("user", user)
                         startActivity(gotoProfile)

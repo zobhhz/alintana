@@ -26,6 +26,7 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         user = intent.getSerializableExtra("user") as User
 
         sfx = SoundEffects(applicationContext)
+        startService( Intent(applicationContext, MediaPlayerService::class.java ))
 
         loadFragment(UserProfileFragment())
 

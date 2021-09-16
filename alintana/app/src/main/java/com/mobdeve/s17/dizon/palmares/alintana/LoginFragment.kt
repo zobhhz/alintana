@@ -87,8 +87,6 @@ class LoginFragment : Fragment() {
                         gotoProfile.putExtra("user", user)
 //                        gotoEditProfile.putExtra("user", user)
                         startActivity(gotoProfile)
-                        activity?.startService( Intent(requireActivity().applicationContext, MediaPlayerService::class.java ))
-
                         activity!!.finish()
 
                     }else{

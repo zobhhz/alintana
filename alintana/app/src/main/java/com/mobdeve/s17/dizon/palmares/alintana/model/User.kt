@@ -187,7 +187,6 @@ class User : Serializable{
     fun getAge():Int{
         val today : Calendar = Calendar.getInstance()
         val dob : Calendar = Calendar.getInstance()
-        Log.v("AGE", this.birthdate)
 
         if(!this.birthdate.contains("/"))
             this.birthdate = convertJSONDateToString(this.birthdate)

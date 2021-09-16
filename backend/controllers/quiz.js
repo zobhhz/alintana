@@ -44,6 +44,10 @@ exports.addQuizResult = async (req, res, next) => {
         } else {
             quizResult = await QuizResult.create(data);
         }
+        
+        await User.findByIdAndUpdate(user, {
+            $inc: { dailyGame: 1, allTimeGame: 1, experience: 40 },
+        });
 
         res.status(201).json(quizResult);
     } catch (err) {
