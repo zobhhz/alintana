@@ -22,7 +22,7 @@ exports.getUser = async (req, res, next) => {
 exports.updateUser = async (req, res, next) => {
   try {
     const splitDate = req.body.birthdate.split("/");
-    //console.log(req.body);
+    console.log(req.body);
     let update = {
       username: req.body.username,
       sex: req.body.sex,
@@ -39,10 +39,28 @@ exports.updateUser = async (req, res, next) => {
       preference: req.body.preference,
     };
     if (req.body.fileStr !== "") {
-      var uploadStr = "data:image/jpeg;base64," + req.body.fileStr;
-      const uploadedResponse = await cloudinary.uploader.upload(uploadStr, {
-        upload_preset: "ml_default",
-      });
+      let uploadStr = "";
+      let uploadedResponse;
+      if (req.body.fileStr.includes("<GIF>")) {
+        console.log("TESTING GIF");
+        uploadStr =
+          "data:image/gif;base64," + req.body.fileStr.replace("<GIF>", "");
+        uploadedResponse = await cloudinary.uploader.upload(uploadStr, {
+          upload_preset: "ml_default",
+          format: "gif",
+        });
+      } else {
+        console.log("TESTING NOTGIF");
+
+        uploadStr =
+          "data:image/png;base64," + req.body.fileStr.replace("<NOTGIF>", "");
+        uploadedResponse = await cloudinary.uploader.upload(uploadStr, {
+          upload_preset: "ml_default",
+          format: "png",
+        });
+      }
+
+      console.log(uploadedResponse);
 
       update.userimg = uploadedResponse.url;
     }
