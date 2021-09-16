@@ -9,12 +9,14 @@ import androidx.core.app.NavUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.ActivityGameBinding
+import com.mobdeve.s17.dizon.palmares.alintana.model.Quiz
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
 import com.mobdeve.s17.dizon.palmares.alintana.services.MediaPlayerService
 
 class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
     lateinit var user : User
+    lateinit var quiz : Quiz
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

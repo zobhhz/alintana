@@ -46,7 +46,7 @@ class GameMainFragment : BaseGameFragment() {
 
         binding.btnGameCategory1.setOnClickListener {
             getGameByCategory("Food")
-//            (requireActivity() as GameActivity).loadFragment(GameQuestionFragment())
+//
             Log.v("GameMainFragment","Button pressed")
         }
 
@@ -63,10 +63,9 @@ class GameMainFragment : BaseGameFragment() {
     private fun getGameByCategory(categ: String){
         client.getQuiz(categ).enqueue(object: Callback<Quiz>{
             override fun onResponse(call: Call<Quiz>, response: Response<Quiz>) {
-                var quiz = response.body()
-                Log.d("Quiz:", quiz.toString())
-                Toast.makeText(requireActivity().applicationContext, quiz!!.category, Toast.LENGTH_LONG)
-
+                ACTIVITY.quiz = response.body()!!
+                Log.d("Quiz:", ACTIVITY.quiz.toString())
+                (requireActivity() as GameActivity).loadFragment(GameQuestionFragment())
             }
 
             override fun onFailure(call: Call<Quiz>, t: Throwable) {

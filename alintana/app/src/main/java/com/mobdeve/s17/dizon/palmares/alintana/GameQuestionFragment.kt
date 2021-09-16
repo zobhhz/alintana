@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentGameQuestionBinding
 import com.mobdeve.s17.dizon.palmares.alintana.helpers.BaseGameFragment
+import com.mobdeve.s17.dizon.palmares.alintana.model.Quiz
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
 
 /**
@@ -38,6 +39,13 @@ class GameQuestionFragment : BaseGameFragment() {
             //(requireActivity() as GameActivity).loadFragment(GameQuestionFragment())
             Log.v("GameQuestionFragment","Button pressed")
         }
+         var currQuiz : Quiz = ACTIVITY.quiz
+
+        binding.tvQuestion.text = currQuiz.questions!![0].question
+        binding.btnGameAnswer1.text = currQuiz.questions!![0].choices!![0]
+        binding.btnGameAnswer2.text = currQuiz.questions!![1].choices!![1]
+        binding.btnGameAnswer3.text = currQuiz.questions!![2].choices!![2]
+        binding.btnGameAnswer4.text = currQuiz.questions!![3].choices!![3]
 
         val positions = arrayOf(false,false,false,false)
         binding.btnGameAnswer1.setOnClickListener {
