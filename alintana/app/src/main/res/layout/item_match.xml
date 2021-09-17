@@ -22,7 +22,9 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/siv_user"
             android:layout_width="64dp"
+
             android:layout_height="64dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_baseline_person_24"
             card_view:shapeAppearanceOverlay="@style/roundedImageViewRounded"
             />

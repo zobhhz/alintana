@@ -30,6 +30,7 @@
                 android:id="@+id/siv_user"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:scaleType="centerCrop"
                 app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
                 android:src="@drawable/ic_baseline_person_24"
                 />

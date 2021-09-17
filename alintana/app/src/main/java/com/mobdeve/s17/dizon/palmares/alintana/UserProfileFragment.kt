@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentUserProfileBinding
 import com.mobdeve.s17.dizon.palmares.alintana.helpers.BaseProfileFragment
@@ -97,7 +98,11 @@ class UserProfileFragment : BaseProfileFragment() {
         binding.tvProfileHeadline.text = user.headline
 
         if(user.userImage != null && !TextUtils.isEmpty(user.userImage)){
-            Picasso.get().load(user.userImage).into(binding.ivProfileImage)
+            if(user.isMyImageGIF()){
+                Glide.with(requireActivity().applicationContext).load(user.userImage).into(binding.ivProfileImage)
+            }else{
+                Picasso.get().load(user.userImage).into(binding.ivProfileImage)
+            }
         }
         else {
             binding.ivProfileImage.setImageResource(R.drawable.ic_baseline_person_24)

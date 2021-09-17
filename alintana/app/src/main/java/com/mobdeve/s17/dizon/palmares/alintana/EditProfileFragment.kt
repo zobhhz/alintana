@@ -21,7 +21,9 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentEditProfileBinding
 import com.mobdeve.s17.dizon.palmares.alintana.helpers.BaseProfileFragment
@@ -34,6 +36,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.InputStream
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -52,6 +55,7 @@ class EditProfileFragment : BaseProfileFragment() {
     private var drawable : Drawable? = null
     private var format : String = ""
     private var imageFile : File? = null
+    private var inputStream : InputStream? = null
 
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -64,12 +68,15 @@ class EditProfileFragment : BaseProfileFragment() {
             var pathCut = path.toString().split(".")
             format = pathCut[pathCut.size - 1]
 
+            inputStream = requireActivity().applicationContext.contentResolver.openInputStream(path)
+
             try{
                 if(Build.VERSION.SDK_INT < 28) {
                     bitmap = MediaStore.Images.Media.getBitmap(requireActivity().applicationContext.contentResolver, path)
                     binding.ivProfileImage.setImageBitmap(bitmap)
                 }else{
                     val source = ImageDecoder.createSource(requireActivity().applicationContext.contentResolver, path)
+
                     binding.ivProfileImage.setImageBitmap(bitmap)
                     bitmap = ImageDecoder.decodeBitmap(source)
 
@@ -127,7 +134,11 @@ class EditProfileFragment : BaseProfileFragment() {
         binding.actvLoc.setText(user.location)
         binding.actvMobilenumber.setText(user.mobileNumber)
         if(user.userImage != null && !TextUtils.isEmpty(user.userImage)){
-            Picasso.get().load(user.userImage).into(binding.ivProfileImage)
+            if(user.isMyImageGIF()){
+                Glide.with(requireActivity().applicationContext).load(user.userImage).into(binding.ivProfileImage)
+            }else{
+                Picasso.get().load(user.userImage).into(binding.ivProfileImage)
+            }
         }
         else {
             binding.ivProfileImage.setImageResource(R.drawable.ic_baseline_person_24)
@@ -147,9 +158,9 @@ class EditProfileFragment : BaseProfileFragment() {
                 stringImg = ""
             } else {
                 if(format == "gif")
-                    stringImg = "<GIF>" + imgToString()
+                    stringImg = "<GIF>" + convertImageFileToBase64()
                 else
-                    stringImg = "<NOTGIF>" + imgToString()
+                    stringImg = "<NOTGIF>" + convertImageFileToBase64()
             }
 
             var updateUserInformation = UpdateUserInformation(
@@ -165,7 +176,7 @@ class EditProfileFragment : BaseProfileFragment() {
                    ACTIVITY.binding.navView.menu.getItem(0).setChecked(true)
                 }
                 override fun onFailure(call: Call<User>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    t.printStackTrace()
                 }
             })
         }
@@ -232,16 +243,16 @@ class EditProfileFragment : BaseProfileFragment() {
         return Base64.encodeToString(imgByte, Base64.NO_WRAP)
     }
 
-//    fun convertImageFileToBase64(imageFile: File?): String {
-//        return ByteArrayOutputStream().use { outputStream ->
-//            Base64OutputStream(outputStream, Base64.DEFAULT).use { base64FilterStream ->
-//                imageFile!!.inputStream().use { inputStream ->
-//                    inputStream.copyTo(base64FilterStream)
-//                }
-//            }
-//            return@use outputStream.toString()
-//        }
-//    }
+    fun convertImageFileToBase64(): String {
+        return ByteArrayOutputStream().use { outputStream ->
+            Base64OutputStream(outputStream, Base64.DEFAULT).use { base64FilterStream ->
+                inputStream!!.use { inputStream ->
+                    inputStream.copyTo(base64FilterStream)
+                }
+            }
+            return@use outputStream.toString()
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

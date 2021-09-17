@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.mobdeve.s17.dizon.palmares.alintana.R
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.model.AddMatchInformation
@@ -32,8 +33,12 @@ class MyMatchesAdapter (var context: Context, var matches: ArrayList<User>, var 
     override fun onBindViewHolder(holder: MyMatchesViewHolder, position: Int) {
         holder.username.text = matches[position].username
 
-        if(matches[position].userImage != null && !TextUtils.isEmpty(matches[position].userImage))
-            Picasso.get().load(matches[position].userImage).into(holder.userImg)
+        if(matches[position].userImage != null && !TextUtils.isEmpty(matches[position].userImage)){
+            if(matches[position].isMyImageGIF())
+                Glide.with(context).load(matches[position].userImage).into(holder.userImg)
+            else
+                Picasso.get().load(matches[position].userImage).into(holder.userImg)
+        }
         else
             holder.userImg.setImageResource(R.drawable.ic_baseline_person_24)
 

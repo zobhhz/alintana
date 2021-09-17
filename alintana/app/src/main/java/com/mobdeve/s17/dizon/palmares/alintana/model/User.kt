@@ -216,6 +216,14 @@ class User : Serializable{
         return SimpleDateFormat("MM/dd/yyyy").format(parse)
     }
 
+    fun isMyImageGIF(): Boolean {
+        if(this.userImage !== ""){
+            val segment = userImage.split(".")
+            return segment[segment.size - 1] == "gif"
+        }
+        return false
+    }
+
 
 
 }

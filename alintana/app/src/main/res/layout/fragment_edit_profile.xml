@@ -261,6 +261,7 @@
                 android:id="@+id/iv_profile_image"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
+                android:scaleType="centerCrop"
                 app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
                 android:src="@drawable/ic_baseline_person_24"
                 android:layout_marginRight="16dp"
