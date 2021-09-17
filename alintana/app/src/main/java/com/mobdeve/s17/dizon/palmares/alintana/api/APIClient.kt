@@ -7,8 +7,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object APIClient {
-    //val BASE_URL = "https://alintana-backend.herokuapp.com"
-    val BASE_URL = "http://10.0.2.2:3000"
+    val BASE_URL = "https://alintana-backend.herokuapp.com"
+    //val BASE_URL = "http://10.0.2.2:3000"
 
     fun create(): APIInterface {
             val gson = GsonBuilder().setLenient().create()
