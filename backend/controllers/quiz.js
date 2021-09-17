@@ -22,17 +22,17 @@ exports.getQuiz = async (req, res, next) => {
 
 exports.addQuizResult = async (req, res, next) => {
     try {
-        const { user, quiz, answer1, answer2, answer3, answer4, answer5 } = req.body;
+        const { user, category, answer1, answer2, answer3, answer4, answer5 } = req.body;
 
         let data = {
             user,
-            quiz,
+            category,
             answers: [answer1, answer2, answer3, answer4, answer5],
         };
         console.log(data);
 
-        // hanap
-        const existing = await QuizResult.findOne({ user, quiz });
+        // hanap 
+        const existing = await QuizResult.findOne({ user, category });
         let quizResult;
 
         // check if existing
@@ -61,10 +61,10 @@ exports.addQuizResult = async (req, res, next) => {
 
 exports.getLeaderboards = async (req, res, next) => {
     try {
-        const { user, quiz } = req.params;
+        const { user, category } = req.params;
 
         // find quiz result 
-        const myResult = await QuizResult.findOne({ user, quiz });
+        const myResult = await QuizResult.findOne({ user, category });
 
         // find matches
         const matchList = await Match.find({ sender: user });
@@ -77,7 +77,7 @@ exports.getLeaderboards = async (req, res, next) => {
         let quizMatches = [];
         for (let match of data) {
             let user = match._id;
-            let otherResult = await QuizResult.findOne({ user, quiz });
+            let otherResult = await QuizResult.findOne({ user, category });
 
             // if not null, compute and push into array
             if (otherResult) {
@@ -105,10 +105,7 @@ exports.getLeaderboards = async (req, res, next) => {
         console.log("getLeaderboard: quizMatches", quizMatches);
         console.log("getLeaderboard: quizMatches length", quizMatches.length);
 
-        res.status(200).json({
-            status: "Success",
-            quizMatches,
-        });
+        res.status(200).json(quizMatches);
     } catch (err) {
         console.log(err);
         res.status(500).json({

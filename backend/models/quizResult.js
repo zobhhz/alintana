@@ -5,9 +5,8 @@ const quizResultSchema = mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: "User",
     },
-    quiz: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Quiz",
+    category: {
+        type: String,
     },
     answers: [
         {
@@ -22,10 +21,10 @@ quizResultSchema.pre(/^find/, function (next) {
         model: "User",
     });
 
-    this.populate({
-        path: "quiz",
-        model: "Quiz",
-    });
+    // this.populate({
+    //     path: "quiz",
+    //     model: "Quiz",
+    // });
     next();
 });
 

@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.app.NavUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.ActivityGameBinding
 import com.mobdeve.s17.dizon.palmares.alintana.helpers.SoundEffects
+import com.mobdeve.s17.dizon.palmares.alintana.model.Leaderboard
 import com.mobdeve.s17.dizon.palmares.alintana.model.Quiz
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
 import com.mobdeve.s17.dizon.palmares.alintana.services.MediaPlayerService
@@ -18,6 +20,7 @@ class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
     lateinit var user : User
     lateinit var quiz : Quiz
+    lateinit var leaderboard: Leaderboard
     lateinit var sfx : SoundEffects
 
     override fun onCreate(savedInstanceState: Bundle?) {

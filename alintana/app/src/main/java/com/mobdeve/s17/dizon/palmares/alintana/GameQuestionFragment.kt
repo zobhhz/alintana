@@ -6,11 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
+import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentGameQuestionBinding
 import com.mobdeve.s17.dizon.palmares.alintana.helpers.BaseGameFragment
+import com.mobdeve.s17.dizon.palmares.alintana.model.AddQuizResultInformation
 import com.mobdeve.s17.dizon.palmares.alintana.model.Quiz
+import com.mobdeve.s17.dizon.palmares.alintana.model.QuizResult
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
+import retrofit2.Call
+import retrofit2.Response
+import javax.security.auth.callback.Callback
 
 /**
  * A simple [Fragment] subclass.
@@ -38,11 +45,9 @@ class GameQuestionFragment : BaseGameFragment() {
 
         ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
-        binding.btnNext.setOnClickListener {
-            //(requireActivity() as GameActivity).loadFragment(GameQuestionFragment())
-            Log.v("GameQuestionFragment","Button pressed")
-        }
-         var currQuiz : Quiz = ACTIVITY.quiz
+        var currQuiz : Quiz = ACTIVITY.quiz
+        var client = APIClient.create()
+        var answers = arrayOfNulls<String>(5)
 
         // initialize first question
         binding.indicator1.setColorFilter(resources.getColor(R.color.secondary))
@@ -54,44 +59,72 @@ class GameQuestionFragment : BaseGameFragment() {
 
         // onClick listener for answers
         binding.btnGameAnswer1.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
             changeButtonColor(0)
+            answers[counter] = currQuiz.questions!![counter].choices!![0]
         }
 
         binding.btnGameAnswer2.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
             changeButtonColor(1)
+            answers[counter] = currQuiz.questions!![counter].choices!![1]
         }
 
         binding.btnGameAnswer3.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
             changeButtonColor(2)
+            answers[counter] = currQuiz.questions!![counter].choices!![2]
         }
 
         binding.btnGameAnswer4.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
             changeButtonColor(3)
+            answers[counter] = currQuiz.questions!![counter].choices!![3]
         }
-        /*
-        ang gusto natin mangyari is that load muna yung first question
-        once nagclick to next, show question #2 and repeat until question #5 is shown
-        once nasa question #5 na, pressing next will show the leaderboard na
-         */
-        binding.btnNext.setOnClickListener {
-            // increment counter
-            counter++
-            Log.d("Question index", counter.toString())
-            if(counter < currQuiz.questions!!.size){
-                //change question
-                binding.tvQuestion.text = currQuiz.questions!![counter].question
-                binding.btnGameAnswer1.text = currQuiz.questions!![counter].choices!![0]
-                binding.btnGameAnswer2.text = currQuiz.questions!![counter].choices!![1]
-                binding.btnGameAnswer3.text = currQuiz.questions!![counter].choices!![2]
-                binding.btnGameAnswer4.text = currQuiz.questions!![counter].choices!![3]
 
-                //change indicator and reset button colors
-                changeIndicatorColor()
-                changeButtonColor(4)
-            }
-            else {
-                Log.d("going to leaderboard",counter.toString())
-                (requireActivity() as GameActivity).loadFragment(GameLeaderboardFragment())
+        binding.btnNext.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
+
+            if(answers[counter] != null) {
+                // increment counter
+                counter++
+
+                // there are questions left
+                if(counter < currQuiz.questions!!.size){
+                    Log.d("Question index", counter.toString())
+                    //change question
+                    binding.tvQuestion.text = currQuiz.questions!![counter].question
+                    binding.btnGameAnswer1.text = currQuiz.questions!![counter].choices!![0]
+                    binding.btnGameAnswer2.text = currQuiz.questions!![counter].choices!![1]
+                    binding.btnGameAnswer3.text = currQuiz.questions!![counter].choices!![2]
+                    binding.btnGameAnswer4.text = currQuiz.questions!![counter].choices!![3]
+
+                    //change indicator and reset button colors
+                    changeIndicatorColor()
+                    changeButtonColor(4)
+                }
+                // no questions left
+                else {
+                    Log.d("ANSWERSSSS POPEYES", answers[0]!!);
+                    Log.d("ANSWERSSSS CHINESE", answers[1]!!);
+                    Log.d("ANSWERSSSS BACON", answers[2]!!);
+                    Log.d("ANSWERSSSS SALAD", answers[3]!!);
+                    Log.d("ANSWERSSSS CURRY", answers[4]!!);
+                    Log.d("ANSWERSSSS CATEG", ACTIVITY.quiz.category.toString())
+
+                    val info = AddQuizResultInformation(user._id,ACTIVITY.quiz.category,answers[0]!!,answers[1]!!,answers[2]!!,answers[3]!!,answers[4]!!)
+    //                client.addQuizResult(addQuizResultInformation).enqueue(object: Callback<QuizResult>{
+    //                    override fun onResponse(call: Call<AddQuizResultInformation>, response: Response<AddQuizResultInformation>) {
+    //                        TODO("Not yet implemented")                    }
+    //                    }
+    //                    override fun onFailure(call: Call<User>, t: Throwable) {
+    //                        TODO("Not yet implemented")                    }
+    //                })
+
+                    Log.d("going to leaderboard",counter.toString())
+                    counter = 0
+                    (requireActivity() as GameActivity).loadFragment(GameLeaderboardFragment())
+                }
             }
         }
         // Inflate the layout for this fragment

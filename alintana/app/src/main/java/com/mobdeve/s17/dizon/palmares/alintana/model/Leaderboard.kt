@@ -1,5 +1,13 @@
 package com.mobdeve.s17.dizon.palmares.alintana.model
 
-class Leaderboard {
-    
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
+class Leaderboard : Serializable{
+    @SerializedName("quizMatches")
+    var quizMatches : ArrayList<LeaderboardEntry>? = null
+
+    constructor(quizMatches : ArrayList<LeaderboardEntry>) {
+        this.quizMatches = quizMatches
+    }
 }

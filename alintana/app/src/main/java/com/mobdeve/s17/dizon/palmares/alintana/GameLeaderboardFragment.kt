@@ -35,6 +35,23 @@ class GameLeaderboardFragment : BaseGameFragment() {
 
         ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
+        //var currLeaderboard = ACTIVITY.leaderboard
+        var currQuizCateg = ACTIVITY.quiz.category
+
+        binding.tvTitle.text = "Your Top 5 Matches for " + currQuizCateg
+
+//        // if leaderboard is not empty
+//        if(currLeaderboard.quizMatches!!.size > 0) {
+//            binding.tvSubtitle.text = R.string.default_subtitle.toString()
+//            binding.tvLeaderboardUser1 = currLeaderboard[0].user
+//            binding.tvLeaderboardPercent1 = currLeaderboard[0].percent
+//        }
+//        //leaderboard is empty, don't show card and have prompt
+//        else {
+//            binding.tvSubtitle.text = "No leaderboard found!"
+//            binding.cvLeaderboard.visibility = View.GONE
+//        }
+
         binding.btnContinue.setOnClickListener {
             (requireActivity() as GameActivity).loadFragment(GameMainFragment())
         }

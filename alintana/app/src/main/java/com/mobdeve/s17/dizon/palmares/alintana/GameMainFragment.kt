@@ -11,6 +11,8 @@ import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIInterface
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentGameMainBinding
 import com.mobdeve.s17.dizon.palmares.alintana.helpers.BaseGameFragment
+import com.mobdeve.s17.dizon.palmares.alintana.model.Leaderboard
+import com.mobdeve.s17.dizon.palmares.alintana.model.LeaderboardEntry
 import com.mobdeve.s17.dizon.palmares.alintana.model.Quiz
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
 import retrofit2.Call
@@ -46,46 +48,53 @@ class GameMainFragment : BaseGameFragment() {
         // quizzes
         binding.btnGameCategory1.setOnClickListener {
             ACTIVITY.sfx.clickSoundEffect()
-            getGameByCategory("Food")
+            getGameByCategory("Food", true)
             Log.v("GameMainFragment","Food quiz pressed")
         }
 
         binding.btnGameCategory2.setOnClickListener {
             ACTIVITY.sfx.clickSoundEffect()
-            getGameByCategory("Sports")
+            getGameByCategory("Sports", true)
             Log.v("GameMainFragment","Sports quiz pressed")
         }
 
         binding.btnGameCategory3.setOnClickListener {
             ACTIVITY.sfx.clickSoundEffect()
-            getGameByCategory("Pop Culture")
+            getGameByCategory("Pop Culture", true)
             Log.v("GameMainFragment","Pop Culture quiz pressed")
         }
 
         binding.btnGameCategory4.setOnClickListener {
             ACTIVITY.sfx.clickSoundEffect()
-            getGameByCategory("Games")
+            getGameByCategory("Games", true)
             Log.v("GameMainFragment","Games quiz pressed")
         }
 
         // leaderboards
         binding.btnLeaderboard1.setOnClickListener {
             ACTIVITY.sfx.clickSoundEffect()
+            getLeaderboardByCategory(user._id, "Food")
             Log.v("GameMainFragment","Food Leaderboard pressed")
         }
 
         binding.btnLeaderboard2.setOnClickListener {
             ACTIVITY.sfx.clickSoundEffect()
+
+            getLeaderboardByCategory(user._id,"Sports")
             Log.v("GameMainFragment","Sports Leaderboard pressed")
         }
 
         binding.btnLeaderboard3.setOnClickListener {
             ACTIVITY.sfx.clickSoundEffect()
+
+            getLeaderboardByCategory(user._id,"Pop Culture")
             Log.v("GameMainFragment","Pop Culture Leaderboard pressed")
         }
 
         binding.btnLeaderboard4.setOnClickListener {
             ACTIVITY.sfx.clickSoundEffect()
+
+            getLeaderboardByCategory(user._id,"Games")
             Log.v("GameMainFragment","Games Leaderboard pressed")
         }
 
@@ -93,12 +102,14 @@ class GameMainFragment : BaseGameFragment() {
         return binding.root
     }
 
-    private fun getGameByCategory(categ: String){
+    private fun getGameByCategory(categ: String, fromQuestionBtn : Boolean){
         client.getQuiz(categ).enqueue(object: Callback<Quiz>{
             override fun onResponse(call: Call<Quiz>, response: Response<Quiz>) {
                 ACTIVITY.quiz = response.body()!!
                 Log.d("Quiz:", ACTIVITY.quiz.toString())
-                (requireActivity() as GameActivity).loadFragment(GameQuestionFragment())
+                if(fromQuestionBtn) {
+                    (requireActivity() as GameActivity).loadFragment(GameQuestionFragment())
+                }
             }
 
             override fun onFailure(call: Call<Quiz>, t: Throwable) {
@@ -107,7 +118,17 @@ class GameMainFragment : BaseGameFragment() {
         })
     }
 
-    private fun getLeaderboardByCategory(categ: String){
-        //TODO
+    private fun getLeaderboardByCategory(user: String, categ: String){
+        client.getLeaderboard(user,categ).enqueue(object: Callback<Leaderboard>{
+            override fun onResponse(call: Call<Leaderboard>, response: Response<Leaderboard>) {
+                ACTIVITY.leaderboard = response.body()!!
+                Log.d("Leaderboard:", "IS IT WORKING?")
+                (requireActivity() as GameActivity).loadFragment(GameLeaderboardFragment())
+            }
+
+            override fun onFailure(call: Call<Leaderboard>, t: Throwable) {
+                t.printStackTrace()
+            }
+        })
     }
 }
