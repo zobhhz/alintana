@@ -47,16 +47,6 @@ class GameActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                NavUtils.navigateUpFromSameTask(this)
-                return true
-            }
-        }
-        return super.onContextItemSelected(item)
-    }
-
 
     fun loadFragment(fragment: Fragment){
         var transaction : FragmentTransaction = supportFragmentManager.beginTransaction();
@@ -68,5 +58,21 @@ class GameActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         stopService( Intent(applicationContext, MediaPlayerService::class.java ))
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            android.R.id.home -> {
+                Log.d("HELLO", "WORLD")
+                val gotoProfile: Intent = Intent(baseContext, ProfileActivity::class.java)
+                gotoProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                gotoProfile.putExtra("user", user)
+                startActivity(gotoProfile)
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+
     }
 }

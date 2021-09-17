@@ -7,17 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getColor
+import retrofit2.Callback
+
+
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentGameQuestionBinding
 import com.mobdeve.s17.dizon.palmares.alintana.helpers.BaseGameFragment
-import com.mobdeve.s17.dizon.palmares.alintana.model.AddQuizResultInformation
-import com.mobdeve.s17.dizon.palmares.alintana.model.Quiz
-import com.mobdeve.s17.dizon.palmares.alintana.model.QuizResult
-import com.mobdeve.s17.dizon.palmares.alintana.model.User
+import com.mobdeve.s17.dizon.palmares.alintana.model.*
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 /**
  * A simple [Fragment] subclass.
@@ -112,18 +110,49 @@ class GameQuestionFragment : BaseGameFragment() {
                     Log.d("ANSWERSSSS CURRY", answers[4]!!);
                     Log.d("ANSWERSSSS CATEG", ACTIVITY.quiz.category.toString())
 
-                    val info = AddQuizResultInformation(user._id,ACTIVITY.quiz.category,answers[0]!!,answers[1]!!,answers[2]!!,answers[3]!!,answers[4]!!)
-    //                client.addQuizResult(addQuizResultInformation).enqueue(object: Callback<QuizResult>{
-    //                    override fun onResponse(call: Call<AddQuizResultInformation>, response: Response<AddQuizResultInformation>) {
-    //                        TODO("Not yet implemented")                    }
-    //                    }
-    //                    override fun onFailure(call: Call<User>, t: Throwable) {
-    //                        TODO("Not yet implemented")                    }
-    //                })
+                    val info = AddQuizResultInformation(user._id, ACTIVITY.quiz.category, answers[0]!!, answers[1]!!, answers[2]!!,answers[3]!!,answers[4]!!)
+//                    client.addQuizResult(addQuizResultInformation).enqueue(object: Callback<QuizResult>{
+//                        override fun onResponse(call: Call<AddQuizResultInformation>, response: Response<AddQuizResultInformation>) {
+//                            TODO("Not yet implemented")                    }
+//                        }
+//                        override fun onFailure(call: Call<User>, t: Throwable) {
+//                            TODO("Not yet implemented")                    }
+//                    })
 
-                    Log.d("going to leaderboard",counter.toString())
-                    counter = 0
-                    (requireActivity() as GameActivity).loadFragment(GameLeaderboardFragment())
+                    client.addQuizResult(info).enqueue(object: Callback<QuizResult>{
+                        override fun onResponse(
+                            call: Call<QuizResult>,
+                            response: Response<QuizResult>
+                        ) {
+                            Log.d("WTF:", response.body()!!.toString())
+                            Log.d("going to leaderboard",counter.toString())
+                            counter = 0
+
+                            var quizResult : QuizResult = response.body()!!
+
+                            client.getLeaderboard(ACTIVITY.user._id, quizResult.category).enqueue(object :Callback<Leaderboard>{
+                                override fun onResponse(
+                                    call: Call<Leaderboard>,
+                                    response: Response<Leaderboard>
+                                ) {
+                                    Log.d("LEADERBOARD: ", response.body()!!.toString())
+                                    ACTIVITY.leaderboard = response.body()!!
+
+                                    (requireActivity() as GameActivity).loadFragment(GameLeaderboardFragment())
+
+                                }
+                                override fun onFailure(call: Call<Leaderboard>, t: Throwable) {
+                                    TODO("Not yet implemented")
+                                }
+                            })
+                        }
+
+                        override fun onFailure(call: Call<QuizResult>, t: Throwable) {
+                            t.printStackTrace()
+                        }
+                    })
+
+
                 }
             }
         }

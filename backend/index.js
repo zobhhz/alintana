@@ -20,17 +20,23 @@ app.use(morgan("dev"));
 app.use(express.json({ limit: "50mb" }));
 
 // DAILY TASK
-const db = process.env.DATABASE.replace("<PASSWORD>", process.env.DATABASE_PASSWORD);
+const db = process.env.DATABASE.replace(
+  "<PASSWORD>",
+  process.env.DATABASE_PASSWORD
+);
 
 const agenda = new Agenda({ db: { address: db } });
 
 agenda.define("update daily tasks", async (job) => {
-    await User.updateMany({}, { dailySwipeRight: 0, dailySwipeLeft: 0, dailyGame: 0, dailyMatch: 0 });
+  await User.updateMany(
+    {},
+    { dailySwipeRight: 0, dailySwipeLeft: 0, dailyGame: 0, dailyMatch: 0 }
+  );
 });
 
 (async function () {
-    await agenda.start();
-    await agenda.every("0 4 * * 0-6", "update daily tasks");
+  await agenda.start();
+  await agenda.every("0 4 * * 0-6", "update daily tasks");
 })();
 
 app.use("/", authRoutes);

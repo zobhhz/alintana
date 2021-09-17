@@ -48,25 +48,25 @@ class GameMainFragment : BaseGameFragment() {
         // quizzes
         binding.btnGameCategory1.setOnClickListener {
             ACTIVITY.sfx.clickSoundEffect()
-            getGameByCategory("Food", true)
+            getGameByCategory("Food")
             Log.v("GameMainFragment","Food quiz pressed")
         }
 
         binding.btnGameCategory2.setOnClickListener {
             ACTIVITY.sfx.clickSoundEffect()
-            getGameByCategory("Sports", true)
+            getGameByCategory("Sports")
             Log.v("GameMainFragment","Sports quiz pressed")
         }
 
         binding.btnGameCategory3.setOnClickListener {
             ACTIVITY.sfx.clickSoundEffect()
-            getGameByCategory("Pop Culture", true)
+            getGameByCategory("Pop Culture")
             Log.v("GameMainFragment","Pop Culture quiz pressed")
         }
 
         binding.btnGameCategory4.setOnClickListener {
             ACTIVITY.sfx.clickSoundEffect()
-            getGameByCategory("Games", true)
+            getGameByCategory("Games")
             Log.v("GameMainFragment","Games quiz pressed")
         }
 
@@ -102,33 +102,44 @@ class GameMainFragment : BaseGameFragment() {
         return binding.root
     }
 
-    private fun getGameByCategory(categ: String, fromQuestionBtn : Boolean){
+    private fun getGameByCategory(categ: String){
         client.getQuiz(categ).enqueue(object: Callback<Quiz>{
             override fun onResponse(call: Call<Quiz>, response: Response<Quiz>) {
                 ACTIVITY.quiz = response.body()!!
                 Log.d("Quiz:", ACTIVITY.quiz.toString())
-                if(fromQuestionBtn) {
-                    (requireActivity() as GameActivity).loadFragment(GameQuestionFragment())
-                }
+                (requireActivity() as GameActivity).loadFragment(GameQuestionFragment())
+
             }
 
             override fun onFailure(call: Call<Quiz>, t: Throwable) {
-                TODO("Not yet implemented")
+                t.printStackTrace()
             }
         })
     }
 
     private fun getLeaderboardByCategory(user: String, categ: String){
-        client.getLeaderboard(user,categ).enqueue(object: Callback<Leaderboard>{
-            override fun onResponse(call: Call<Leaderboard>, response: Response<Leaderboard>) {
-                ACTIVITY.leaderboard = response.body()!!
-                Log.d("Leaderboard:", "IS IT WORKING?")
-                (requireActivity() as GameActivity).loadFragment(GameLeaderboardFragment())
-            }
 
-            override fun onFailure(call: Call<Leaderboard>, t: Throwable) {
-                t.printStackTrace()
+        client.getQuiz(categ).enqueue(object: Callback<Quiz>{
+            override fun onResponse(call: Call<Quiz>, response: Response<Quiz>) {
+                ACTIVITY.quiz = response.body()!!
+                client.getLeaderboard(user,categ).enqueue(object: Callback<Leaderboard>{
+                    override fun onResponse(call: Call<Leaderboard>, response: Response<Leaderboard>) {
+                        ACTIVITY.leaderboard = response.body()!!
+                        Log.d("Leaderboard:", "IS IT WORKING?")
+                        (requireActivity() as GameActivity).loadFragment(GameLeaderboardFragment())
+                    }
+
+                    override fun onFailure(call: Call<Leaderboard>, t: Throwable) {
+                        t.printStackTrace()
+                    }
+                })
+            }
+            override fun onFailure(call: Call<Quiz>, t: Throwable) {
+               t.printStackTrace()
             }
         })
+
+
+
     }
 }
