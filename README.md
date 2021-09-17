@@ -17,10 +17,10 @@ MOBDEVE Machine Project
 
 ### Config.env variables
 
-PORT=3000
-DATABASE=mongodb+srv://alyssa:\<PASSWORD>@cluster0.llilw.mongodb.net/alintana?retryWrites=true&w=majority
-DATABASE_LOCAL=mongodb://localhost:27017/alintana
-DATABASE_PASSWORD=Oc0wcxoiFr2oyZm4
-CLOUDINARY_NAME = db29tm4pj
-CLOUDINARY_API_KEY = 927632498667314
-CLOUDINARY_API_SECRET = t2LCmMLBvS7RYdLGhhtSvBYLbDE
+      PORT=3000
+      DATABASE=mongodb+srv://alyssa:\<PASSWORD>@cluster0.llilw.mongodb.net/alintana?retryWrites=true&w=majority
+      DATABASE_LOCAL=mongodb://localhost:27017/alintana
+      DATABASE_PASSWORD=Oc0wcxoiFr2oyZm4
+      CLOUDINARY_NAME = db29tm4pj
+      CLOUDINARY_API_KEY = 927632498667314
+      CLOUDINARY_API_SECRET = t2LCmMLBvS7RYdLGhhtSvBYLbDE
