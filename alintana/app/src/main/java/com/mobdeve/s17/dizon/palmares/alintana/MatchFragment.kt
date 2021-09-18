@@ -29,7 +29,6 @@ class MatchFragment : BaseProfileFragment()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -55,7 +54,6 @@ class MatchFragment : BaseProfileFragment()  {
         override fun canScrollHorizontally(): Boolean {
             return false
         }
-
     }
 
     override fun onDestroyView() {
@@ -81,9 +79,8 @@ class MatchFragment : BaseProfileFragment()  {
             }
 
             override fun onFailure(call: Call<MatchesResponse>, t: Throwable) {
+                t.printStackTrace()
             }
         })
     }
-
-
 }

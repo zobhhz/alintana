@@ -108,7 +108,6 @@ class GameMainFragment : BaseGameFragment() {
                 ACTIVITY.quiz = response.body()!!
                 Log.d("Quiz:", ACTIVITY.quiz.toString())
                 (requireActivity() as GameActivity).loadFragment(GameQuestionFragment())
-
             }
 
             override fun onFailure(call: Call<Quiz>, t: Throwable) {
@@ -138,8 +137,5 @@ class GameMainFragment : BaseGameFragment() {
                t.printStackTrace()
             }
         })
-
-
-
     }
 }

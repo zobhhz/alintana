@@ -26,7 +26,6 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         user = intent.getSerializableExtra("user") as User
 
         sfx = SoundEffects(applicationContext)
-        startService( Intent(applicationContext, MediaPlayerService::class.java ))
 
         loadFragment(UserProfileFragment())
 
@@ -56,6 +55,10 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         actionBarDrawerToggle.drawerArrowDrawable.color = resources.getColor(R.color.primary)
 
         setContentView(binding.root)
+    }
+    override fun onStart(){
+        super.onStart()
+        startService(Intent(applicationContext, MediaPlayerService::class.java ))
     }
 
     // navigation bar functions
@@ -94,7 +97,5 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     override fun onDestroy() {
         super.onDestroy()
         stopService( Intent(applicationContext, MediaPlayerService::class.java ))
-
     }
-
 }

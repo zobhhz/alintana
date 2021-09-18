@@ -38,7 +38,6 @@ class GameLeaderboardFragment : BaseGameFragment() {
         var currLeaderboard = ACTIVITY.leaderboard
         var currQuizCateg = ACTIVITY.quiz.category
 
-
         // if leaderboard is not empty
         if(currLeaderboard.quizMatches!!.size > 0) {
             binding.tvTitle.text = "Your Top ${ACTIVITY.leaderboard.quizMatches!!.size} Matches for " + currQuizCateg
@@ -50,28 +49,15 @@ class GameLeaderboardFragment : BaseGameFragment() {
 
             binding.tvLeaderboardUser2.text = getValOrEmptyString(1, 1)
             binding.tvLeaderboardPercent2.text = getValOrEmptyString(1, 2)
-//            if(binding.tvLeaderboardUser2.text.toString().isEmpty()){
-//                binding.tvLeaderboardUser2.visibility = View.GONE
-//                binding.tvLeaderboardPercent2.visibility = View.GONE
-//            }
-
 
             binding.tvLeaderboardUser3.text = getValOrEmptyString(2, 1)
             binding.tvLeaderboardPercent3.text = getValOrEmptyString(2, 2)
-//            if(binding.tvLeaderboardUser3.text.toString().isEmpty()){
-//                binding.tvLeaderboardUser3.visibility = View.GONE
-//                binding.tvLeaderboardPercent3.visibility = View.GONE
-//            }
-
 
             binding.tvLeaderboardUser4.text = getValOrEmptyString(3, 1)
             binding.tvLeaderboardPercent4.text = getValOrEmptyString(3, 2)
 
-
             binding.tvLeaderboardUser5.text = getValOrEmptyString(4, 1)
             binding.tvLeaderboardPercent5.text = getValOrEmptyString(4, 2)
-
-
         }
         //leaderboard is empty, don't show card and have prompt
         else {
@@ -82,6 +68,7 @@ class GameLeaderboardFragment : BaseGameFragment() {
         }
 
         binding.btnContinue.setOnClickListener {
+            ACTIVITY.sfx.clickSoundEffect()
             (requireActivity() as GameActivity).loadFragment(GameMainFragment())
         }
 

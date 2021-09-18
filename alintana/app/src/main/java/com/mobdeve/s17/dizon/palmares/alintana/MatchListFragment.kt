@@ -70,9 +70,8 @@ class MatchListFragment : BaseProfileFragment() {
                 myMatchAdapter.setList(tempMatches)
             }
             override fun onFailure(call: Call<MatchesResponse>, t: Throwable) {
+                t.printStackTrace()
             }
         })
-
     }
-
 }

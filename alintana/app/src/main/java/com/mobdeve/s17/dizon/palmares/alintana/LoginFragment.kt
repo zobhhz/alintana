@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentLoginBinding
+import com.mobdeve.s17.dizon.palmares.alintana.helpers.SoundEffects
 import com.mobdeve.s17.dizon.palmares.alintana.model.LoginInformation
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
 import com.mobdeve.s17.dizon.palmares.alintana.model.response.LoginResponse
@@ -41,7 +42,6 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onStop() {
@@ -55,8 +55,10 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        val sfx = SoundEffects(requireActivity().applicationContext)
 
         binding.btnLogin.setOnClickListener{
+            sfx.clickSoundEffect()
 
             val username = binding.etLoginUsername.text.toString().trim()
             val password = binding.etLoginPassword.text.toString().trim()
@@ -82,10 +84,8 @@ class LoginFragment : Fragment() {
                         //val user = rawData as User
 
                         val gotoProfile : Intent = Intent(activity?.baseContext, ProfileActivity::class.java)
-//                        val gotoEditProfile: Intent  = Intent(activity?.baseContext, EditProfileActivity::class.java)
                         gotoProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                         gotoProfile.putExtra("user", user)
-//                        gotoEditProfile.putExtra("user", user)
                         startActivity(gotoProfile)
                         activity!!.finish()
 
@@ -106,5 +106,4 @@ class LoginFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

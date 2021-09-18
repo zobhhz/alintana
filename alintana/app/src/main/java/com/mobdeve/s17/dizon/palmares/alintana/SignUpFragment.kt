@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.mobdeve.s17.dizon.palmares.alintana.api.APIClient
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentSignUpBinding
+import com.mobdeve.s17.dizon.palmares.alintana.helpers.SoundEffects
 import com.mobdeve.s17.dizon.palmares.alintana.model.RegisterInformation
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
 import com.mobdeve.s17.dizon.palmares.alintana.model.response.RegisterResponse
@@ -45,6 +46,8 @@ class SignUpFragment : Fragment() {
         val sexAdapter = ArrayAdapter(requireContext(), R.layout.item_list, items)
         (binding.actvSex)?.setAdapter(sexAdapter)
 
+        val sfx = SoundEffects(requireActivity().applicationContext)
+
         binding.actvSex.setText(sexAdapter.getItem(0), false)
 
         val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
@@ -65,7 +68,6 @@ class SignUpFragment : Fragment() {
         binding.etPassword.setText("12345678")
         binding.etConfirmpassword.setText("12345678")
 
-
         binding.etBirthdate.setOnFocusChangeListener { v, hasFocus ->
 
             if(hasFocus){
@@ -80,22 +82,8 @@ class SignUpFragment : Fragment() {
             }
         }
 
-//
-//        binding.etBirthdate.setOnClickListener {
-//            Log.i("SET", "CHECK")
-//
-//            if (container != null) {
-//                Log.i("SET", "HELLO")
-//                DatePickerDialog(container.context, dateSetListener,
-//                    calendar.get(YEAR),
-//                    calendar.get(MONTH),
-//                    calendar.get(DAY_OF_MONTH))
-//                    .show()
-//            }
-//
-//        }
-
         binding.btnSignup.setOnClickListener{
+            sfx.clickSoundEffect()
             val username = binding.etUsername.text.toString().trim()
             val password = binding.etPassword.text.toString()
             val confirmPassword = binding.etConfirmpassword.text.toString()
@@ -152,5 +140,4 @@ class SignUpFragment : Fragment() {
 
         return binding.root
     }
-
 }

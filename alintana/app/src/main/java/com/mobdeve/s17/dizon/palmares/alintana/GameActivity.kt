@@ -31,7 +31,6 @@ class GameActivity : AppCompatActivity() {
         Log.v("USER", user.toString())
 
         sfx = SoundEffects(applicationContext)
-        startService( Intent(applicationContext, MediaPlayerService::class.java ))
 
         loadFragment(GameMainFragment())
 
@@ -47,7 +46,6 @@ class GameActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-
     fun loadFragment(fragment: Fragment){
         var transaction : FragmentTransaction = supportFragmentManager.beginTransaction();
         transaction.replace(R.id.container, fragment)
@@ -55,20 +53,15 @@ class GameActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        stopService( Intent(applicationContext, MediaPlayerService::class.java ))
-    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
             android.R.id.home -> {
-                Log.d("HELLO", "WORLD")
+                sfx.clickSoundEffect()
                 val gotoProfile: Intent = Intent(baseContext, ProfileActivity::class.java)
                 gotoProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 gotoProfile.putExtra("user", user)
                 startActivity(gotoProfile)
-                finish()
                 return true
             }
         }

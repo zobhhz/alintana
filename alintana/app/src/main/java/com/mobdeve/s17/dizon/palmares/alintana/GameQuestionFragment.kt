@@ -103,29 +103,13 @@ class GameQuestionFragment : BaseGameFragment() {
                 }
                 // no questions left
                 else {
-                    Log.d("ANSWERSSSS POPEYES", answers[0]!!);
-                    Log.d("ANSWERSSSS CHINESE", answers[1]!!);
-                    Log.d("ANSWERSSSS BACON", answers[2]!!);
-                    Log.d("ANSWERSSSS SALAD", answers[3]!!);
-                    Log.d("ANSWERSSSS CURRY", answers[4]!!);
-                    Log.d("ANSWERSSSS CATEG", ACTIVITY.quiz.category.toString())
-
                     val info = AddQuizResultInformation(user._id, ACTIVITY.quiz.category, answers[0]!!, answers[1]!!, answers[2]!!,answers[3]!!,answers[4]!!)
-//                    client.addQuizResult(addQuizResultInformation).enqueue(object: Callback<QuizResult>{
-//                        override fun onResponse(call: Call<AddQuizResultInformation>, response: Response<AddQuizResultInformation>) {
-//                            TODO("Not yet implemented")                    }
-//                        }
-//                        override fun onFailure(call: Call<User>, t: Throwable) {
-//                            TODO("Not yet implemented")                    }
-//                    })
 
                     client.addQuizResult(info).enqueue(object: Callback<QuizResult>{
                         override fun onResponse(
                             call: Call<QuizResult>,
                             response: Response<QuizResult>
                         ) {
-                            Log.d("WTF:", response.body()!!.toString())
-                            Log.d("going to leaderboard",counter.toString())
                             counter = 0
 
                             var quizResult : QuizResult = response.body()!!
@@ -142,7 +126,7 @@ class GameQuestionFragment : BaseGameFragment() {
 
                                 }
                                 override fun onFailure(call: Call<Leaderboard>, t: Throwable) {
-                                    TODO("Not yet implemented")
+                                    t.printStackTrace()
                                 }
                             })
                         }
@@ -151,8 +135,6 @@ class GameQuestionFragment : BaseGameFragment() {
                             t.printStackTrace()
                         }
                     })
-
-
                 }
             }
         }

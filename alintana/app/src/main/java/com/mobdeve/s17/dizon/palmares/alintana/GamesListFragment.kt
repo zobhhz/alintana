@@ -10,6 +10,7 @@ import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentGamesListBind
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentMatchBinding
 import com.mobdeve.s17.dizon.palmares.alintana.helpers.BaseProfileFragment
 import com.mobdeve.s17.dizon.palmares.alintana.model.User
+import com.mobdeve.s17.dizon.palmares.alintana.services.MediaPlayerService
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,7 +32,6 @@ class GamesListFragment : BaseProfileFragment(){
         user= ACTIVITY.user
         ACTIVITY.title = "Games"
 
-
         _binding = FragmentGamesListBinding.inflate(inflater, container, false)
 
         binding.btnPlay.setOnClickListener {
@@ -40,6 +40,7 @@ class GamesListFragment : BaseProfileFragment(){
             gotoGame.putExtra("user", user)
             startActivity(gotoGame)
         }
+
         return binding.root
     }
 
@@ -47,5 +48,4 @@ class GamesListFragment : BaseProfileFragment(){
         super.onDestroyView()
         _binding = null
     }
-
 }

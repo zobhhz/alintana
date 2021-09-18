@@ -4,13 +4,6 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 class QuizResult : Serializable {
-    //returning
-
-    /*
-    response - to sturcture data
-    model -deretso
-    information - body
-     */
 
     @SerializedName("user")
     var user : User? = null
@@ -26,6 +19,4 @@ class QuizResult : Serializable {
     var answer4 = ""
     @SerializedName("answer5")
     var answer5 = ""
-
-
 }

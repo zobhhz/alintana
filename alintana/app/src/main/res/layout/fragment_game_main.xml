@@ -107,12 +107,6 @@
         android:layout_height="wrap_content"
         android:text="See who your best matches are!"/>
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rv_game_leaderboards"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginVertical="10dp"-->
-<!--        />-->
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -3,6 +3,7 @@ package com.mobdeve.s17.dizon.palmares.alintana
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,6 @@ import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 /**
  * A simple [Fragment] subclass.
@@ -33,22 +33,22 @@ class UserProfileFragment : BaseProfileFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onResume() {
         super.onResume()
+
         client.getUserById(user._id).enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 ACTIVITY.user = response.body()!!
+                Log.d("USER Obtained: ", response.body()!!.toString())
                 user = ACTIVITY.user
                 bindUserData()
             }
             override fun onFailure(call: Call<User>, t: Throwable) {
-                TODO("Not yet implemented")
+                t.printStackTrace()
             }
         })
-
     }
 
     override fun onCreateView(
@@ -121,7 +121,6 @@ class UserProfileFragment : BaseProfileFragment() {
             binding.tvProfileLoc.visibility = View.GONE
         }
 
-
         // DAILY TASKS
         // 1. Get a Match 3 times
         var denom1 = 3
@@ -147,13 +146,7 @@ class UserProfileFragment : BaseProfileFragment() {
             binding.givFrameAvatar.setImageResource(R.drawable.gif_original)
         else if(level >= 10)
             binding.givFrameAvatar.setImageResource(R.drawable.gif_original2)
-
-
     }
-
-
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

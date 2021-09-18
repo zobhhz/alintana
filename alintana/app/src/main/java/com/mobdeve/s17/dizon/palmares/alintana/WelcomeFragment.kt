@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentSignUpBinding
 import com.mobdeve.s17.dizon.palmares.alintana.databinding.FragmentWelcomeBinding
+import com.mobdeve.s17.dizon.palmares.alintana.helpers.SoundEffects
 
 /**
  * A simple [Fragment] subclass.
@@ -36,7 +37,10 @@ class WelcomeFragment : Fragment() {
         val tvLogin = requireActivity().findViewById(R.id.tv_login) as TextView
         val tvWelcome = requireActivity().findViewById(R.id.tv_welcome) as TextView
 
+        val sfx = SoundEffects(requireActivity().applicationContext)
+
         binding.btnWelcomeSignup.setOnClickListener {
+            sfx.clickSoundEffect()
             tvSignUp.background = resources.getDrawable(R.drawable.textlines, requireActivity().baseContext.theme)
             tvLogin.setBackgroundResource(0)
             tvWelcome.setBackgroundResource(0)
@@ -44,11 +48,11 @@ class WelcomeFragment : Fragment() {
         }
 
         binding.btnWelcomeLogin.setOnClickListener {
+            sfx.clickSoundEffect()
             tvLogin.background = resources.getDrawable(R.drawable.textlines, requireActivity().baseContext.theme)
             tvSignUp.setBackgroundResource(0)
             tvWelcome.setBackgroundResource(0)
             (requireActivity() as MainActivity).loadFragment(LoginFragment())
-            
         }
 
         // Inflate the layout for this fragment
@@ -59,5 +63,4 @@ class WelcomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

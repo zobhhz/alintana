@@ -52,9 +52,6 @@ class User : Serializable{
     @SerializedName("allTimeMatch")
     var allTimeMatch = 0
 
-
-
-
     constructor(
         _id : String,
         username: String,
@@ -130,7 +127,6 @@ class User : Serializable{
         this.allTimeMatch = allTimeMatch
         this.allTimeSwipeLeft = allTimeSwipeLeft
         this.allTimeSwipeRight = allTimeSwipeRight
-
     }
 
     constructor(
@@ -181,7 +177,6 @@ class User : Serializable{
         this.allTimeMatch = allTimeMatch
         this.allTimeSwipeLeft = allTimeSwipeLeft
         this.allTimeSwipeRight = allTimeSwipeRight
-
     }
 
     fun getAge():Int{
@@ -190,7 +185,6 @@ class User : Serializable{
 
         if(!this.birthdate.contains("/"))
             this.birthdate = convertJSONDateToString(this.birthdate)
-
 
         var dates = this.birthdate.split("/")
         val year = parseInt(dates[2])
@@ -223,7 +217,4 @@ class User : Serializable{
         }
         return false
     }
-
-
-
 }

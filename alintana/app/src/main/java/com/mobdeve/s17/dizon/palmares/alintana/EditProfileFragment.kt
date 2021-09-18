@@ -93,8 +93,6 @@ class EditProfileFragment : BaseProfileFragment() {
             }catch (e: Exception){
                 e.printStackTrace()
             }
-
-
         }
     }
 
@@ -103,7 +101,6 @@ class EditProfileFragment : BaseProfileFragment() {
         user = ACTIVITY.user
         ACTIVITY.title = "Edit Profile"
         bitmap = null
-
     }
 
     override fun onCreateView(
@@ -258,5 +255,4 @@ class EditProfileFragment : BaseProfileFragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
