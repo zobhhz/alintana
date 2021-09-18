@@ -51,7 +51,9 @@ exports.addQuizResult = async (req, res, next) => {
       });
       quizResult = await QuizResult.findById(existing._id);
     } else {
+      let myUser = await User.findById(user);
       quizResult = await QuizResult.create(data);
+      quizResult.user = myUser
     }
 
     await User.findByIdAndUpdate(user, {
